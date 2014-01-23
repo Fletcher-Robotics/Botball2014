@@ -1,0 +1,3 @@
+[submodule "OpenCode"]
+	path = OpenCode
+	url = https://github.com/normanadvanced/OpenCode.git
