@@ -2,12 +2,13 @@
 Fletcher Botball Compiler.
 
 Usage:
-  compile.py auto <target>
-  compile.py manual <target> [<extras>...]
+  compile.py auto [--output=FILE]
+  compile.py manual <files>... [--output=FILE]
   compile.py -h | --help
 
 Options:
-  -h --help    Show this screen.
+  -o FILE --output=FILE  Output file.
+  -h --help              Show this screen.
 """
 
 import os
@@ -16,22 +17,24 @@ import subprocess
 from docopt import docopt
 from functools import partial
 
-COMPILE_BASE = ['gcc', '-include', 'stdio.h', '-include', 'kovan/kovan.h', '-c']
+COMPILE_BASE = ['gcc', '-include', 'stdio.h', '-include', 'math.h', '-include', 'kovan/kovan.h', '-c']
 LINK_BASE = ['gcc', '-lkovan', '-lm', '-lpthread']
+EXCLUDE = ['./OpenCode']
 
 
 # Actual action functions
-def compile_manual(target, extras):
-    for extra in extras:
-        call(COMPILE_BASE + [extra])
-    call(COMPILE_BASE + ['-include', 'target.h', target])
-    o_files = map(partial(change_ext, '.o'), extras + [target])
-    call(LINK_BASE + ['-o', change_ext('', target)] + o_files)
+def compile_manual(files, output):
+    if output == None:
+        output = "out"
+    for f in files:
+        call(COMPILE_BASE + [f])
+    o_files = map(partial(change_ext, '.o'), files)
+    call(LINK_BASE + ['-o', output] + o_files)
+    map(os.remove, o_files)
 
-def compile_auto(target):
-    extras = find_files('.', '.c')
-    extras.remove(target)
-    compile_manual(target, extras)
+def compile_auto(output):
+    files = find_files('.', '.c')
+    compile_manual(list(files), output)
 
 # Helper functions
 def change_ext(ext, name):
@@ -43,7 +46,8 @@ def find_files(directory, ewith):
         for basename in files:
             if basename.endswith(ewith):
                 filename = os.path.join(root, basename)
-                yield filename
+                if not any(map(lambda x: filename.startswith(x), EXCLUDE)):
+                    yield filename
 
 def call(clist):
     print('Running: ' + ' '.join(clist))
@@ -53,9 +57,9 @@ def call(clist):
 def main():
     args = docopt(__doc__, sys.argv[1:], version='0.1')
     if args['auto']:
-        compile_auto(args['<target>'])
+        compile_auto(args['--output'])
     elif args['manual']:
-        compile_manual(args['<target>'], args['<extras>'])
+        compile_manual(args['<files>'], args['--output'])
 
 if __name__ == '__main__':
     main()

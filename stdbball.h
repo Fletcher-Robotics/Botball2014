@@ -10,6 +10,9 @@
 #define CMULTI 11.1111 //4000 for 360
 #define FWDMULTI 80
 
+#define LFT 0
+#define RGT 1
+
 void turn_cw(int speed);
 void turn_ccw(int speed);
 void forward(int speed);
