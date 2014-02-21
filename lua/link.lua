@@ -81,7 +81,7 @@ function M.WheelController:both (f, ...)
 end
 
 function M.WheelController:straight (speed, dist)
-	self:both(M.motor, speed / 11)
+	self:both(M.motor, if dist > 0 then speed / 17 else speed / -17 end)
 	M.msleep(40)
 	M.straight(speed, dist)
 end
