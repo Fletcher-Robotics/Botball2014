@@ -2,10 +2,10 @@ local link = require("link")
 
 function main()
 	-- Setup Wheels
-	local w = link.WheelController:new({lp = 0, rp = 1, lm = 0.99, rm = 1, ld = 62.5, rd = 62.5, lr = 80, rr = 80})
+	local w = link.WheelController:new({lp = 0, rp = 1, lm = 0.98, rm = 1, ld = 62.5, rd = 62.5, lr = 80, rr = 80})
 
 	-- Setup Servos/PosMotors
-	local elevator = link.PosMotor:new(2, 600, {push = 400, botguy = 650, top = 2100, cube = 1700, lift = 900})
+	local elevator = link.PosMotor:new(2, 600, {push = 400, botguy = 575, top = 2200, cube = 1700, lift = 900})
 	local claw = link.Servo:new(2, {open = 1900, closed = 950})
 	local lowerClaw = link.Servo:new(3, {open = 1100, closed = 0})
 
@@ -18,7 +18,7 @@ function main()
 	w:arc(600, 200, 90.4)
 
 	-- Push Cube
-	w:straight(600, 325)
+	w:straight(610, 325)
 
 	-- Move to Botguy
 	w:straight(600, -145) -- Go back
@@ -31,26 +31,27 @@ function main()
 
 	-- Pick up botguy
 	claw:closed()
-	elevator:lift()
+	elevator:top()
 	link.wait()
+	elevator:bmd()
 
 	-- Go back
 	w:straight(600, -240)
-	w:spin(700, 92)
-	elevator:top()
-	elevator:bmd()
+	w:spin(700, 92)	
 
 	--Naviagte cube
 	w:straight(590, 820)
 	lowerClaw:closed()
 	w:spin(700, 87)
-	w:straight(580, 475)
-	link.wait()
+	w:straight(500, 250)
+	w.spin(700, 80)
+	w.straight(400, 450)
 
 	-- Backup and lower
 	lowerClaw:open()
-	w:straight(300, -50)
+	w:straight(300, -500)
 	elevator:cube()
+	link.msleep(5000)
 
 	-- Reset all
 	claw:open()
