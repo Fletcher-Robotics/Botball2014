@@ -45,7 +45,7 @@ function main()
 	w:spin(700, 87)
 	w:straight(500, 250)
 	w.spin(700, 80)
-	w.straight(400, 450)
+	w.straight(400, 500)
 
 	-- Backup and lower
 	lowerClaw:open()
