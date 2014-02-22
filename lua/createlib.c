@@ -3,6 +3,7 @@
 #include <lauxlib.h>
 #include <kovan/kovan.h>
 #include "OpenCode/opencode/create/create_drive.h"
+#include "OpenCode/opencode/create/create_accel.h"
 
 // Serial Interface functions
 static int l_connect(lua_State *L) {
@@ -70,6 +71,38 @@ static int l_spin_angle(lua_State *L) {
     return 0;
 }
 
+/// Norman Accel
+static int l_accel_straight(lua_State *L) {
+    int profile = luaL_checkint(L, 1);
+    float max_velocity = luaL_checknumber(L, 2);
+    float distance = luaL_checknumber(L, 3);
+
+    create_accel_straight(profile, max_velocity, distance);
+
+    return 0;
+}
+
+static int l_accel_arc(lua_State *L) {
+    int profile = luaL_checkint(L, 1);
+    float max_velocity = luaL_checknumber(L, 2);
+    float radius = luaL_checknumber(L, 3);
+    float angle = luaL_checknumber(L, 4);
+
+    create_accel_arc(profile, max_velocity, radius, angle);
+
+    return 0;
+}
+
+static int l_accel_spin(lua_State *L) {
+    int profile = luaL_checkint(L, 1);
+    float max_omega = luaL_checknumber(L, 2);
+    float angle = luaL_checknumber(L, 3);
+
+    create_accel_spin(profile, max_omega, angle);
+
+    return 0;
+}
+
 // Sensor
 /// Norman Sensor
 static int l_wait_length(lua_State *L) {
@@ -96,6 +129,9 @@ static const struct luaL_Reg createlib [] = {
     {"drive_segment", l_drive_segment},
     {"drive_arc", l_drive_arc},
     {"spin_angle", l_spin_angle},
+    {"accel_straight", l_accel_straight},
+    {"accel_arc", l_accel_arc},
+    {"accel_spin", l_accel_spin},
 
     {"wait_length", l_wait_length},
     {"sync", l_sync},
