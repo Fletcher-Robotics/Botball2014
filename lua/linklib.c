@@ -54,6 +54,14 @@ static int l_off(lua_State *L) {
     return 0;
 }
 
+static int l_freeze(lua_State *L) {
+    int m = luaL_checkint(L, 1);
+
+    freeze(m);
+
+    return 0;
+}
+
 static int l_clear_motor_position_counter(lua_State *L) {
     int m = luaL_checkint(L, 1);
 
@@ -171,6 +179,7 @@ static const struct luaL_Reg linklib [] = {
     {"motor", l_motor},
     {"ao", l_ao},
     {"off", l_off},
+    {"freeze", l_freeze},
     {"clear_motor_position_counter", l_clear_motor_position_counter},
     {"mtp", l_mtp},
     {"mav", l_mav},

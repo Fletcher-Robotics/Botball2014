@@ -60,6 +60,10 @@ function M.PosMotor:off()
 	M.off(self.p)
 end
 
+function M.PosMotor:freeze()
+	M.freeze(self.p)
+end
+
 M.WheelController = {}
 function M.WheelController:new (o)
 	-- o should include left/right port (lp, rp), left/right speed mult (lm, rm),
