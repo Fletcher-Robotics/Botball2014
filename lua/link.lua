@@ -85,10 +85,7 @@ function M.WheelController:both (f, ...)
 end
 
 function M.WheelController:straight (speed, dist)
-	local power
-	if dist > 0 then power = speed / 20 else power = speed / -20 end
-
-	self:both(M.motor, power)
+	self:both(M.motor, speed / 25)
 	M.msleep(40)
 	M.straight(speed, dist)
 end
