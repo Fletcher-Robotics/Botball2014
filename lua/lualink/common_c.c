@@ -2,7 +2,6 @@
 #include <lua.h>
 #include <lauxlib.h>
 #include <kovan/kovan.h>
-#include "OpenCode/opencode/cbc/drive/drivelib.h"
 
 // Motors
 static int l_mrp(lua_State *L) {
@@ -80,54 +79,6 @@ static int l_mtp(lua_State *L) {
     return 0;
 }
 
-// Norman Stuff
-static int l_build_left_wheel(lua_State *L) {
-    build_left_wheel(luaL_checkint(L, 1), luaL_checklong(L, 2), luaL_checknumber(L, 3),
-                     luaL_checknumber(L, 4), luaL_checknumber(L, 5));
-
-    return 0;
-}
-
-static int l_build_right_wheel(lua_State *L) {
-    build_right_wheel(luaL_checkint(L, 1), luaL_checklong(L, 2), luaL_checknumber(L, 3),
-                      luaL_checknumber(L, 4), luaL_checknumber(L, 5));
-
-    return 0;
-}
-
-static int l_straight(lua_State *L) {
-    int speed = luaL_checkint(L, 1);
-    int dist = luaL_checkint(L, 2);
-
-    cbc_straight(speed, dist);
-
-    return 0;
-}
-
-static int l_arc(lua_State *L) {
-    int speed = luaL_checkint(L, 1);
-    float radius = luaL_checknumber(L, 2);
-    float angle = luaL_checknumber(L, 3);
-
-    cbc_arc(speed, radius, angle);
-
-    return 0;
-}
-
-static int l_spin(lua_State *L) {
-    int speed = luaL_checkint(L, 1);
-    float angle = luaL_checknumber(L, 2);
-
-    cbc_spin(speed, angle);
-
-    return 0;
-}
-
-static int l_wait(lua_State *L) {
-    cbc_wait();
-    return 0;
-}
-
 // Time
 static int l_msleep(lua_State *L) {
     int msec = luaL_checkint(L, 1);
@@ -173,7 +124,7 @@ static int l_analog(lua_State *L) {
 }
 
 
-static const struct luaL_Reg linklib [] = {
+static const struct luaL_Reg common_c [] = {
     {"mrp", l_mrp},
     {"bmd", l_bmd},
     {"motor", l_motor},
@@ -183,13 +134,6 @@ static const struct luaL_Reg linklib [] = {
     {"clear_motor_position_counter", l_clear_motor_position_counter},
     {"mtp", l_mtp},
     {"mav", l_mav},
-    // Norman
-    {"build_left_wheel", l_build_left_wheel},
-    {"build_right_wheel", l_build_right_wheel},
-    {"straight", l_straight},
-    {"arc", l_arc},
-    {"spin", l_spin},
-    {"wait", l_wait},
 
     {"msleep", l_msleep},
 
@@ -202,7 +146,7 @@ static const struct luaL_Reg linklib [] = {
     {NULL, NULL}
 };
 
-int luaopen_linklib(lua_State *L) {
-    luaL_newlib(L, linklib);
+int luaopen_common_c(lua_State *L) {
+    luaL_newlib(L, common_c);
     return 1;
 }

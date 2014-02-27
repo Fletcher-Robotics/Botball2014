@@ -1,8 +1,9 @@
-local link = require("link")
+local link = require "lualink.common"
+local WheelController = require "lualink.wheel"
 
 function main()
 	-- Setup Wheels
-	local w = link.WheelController:new({lp = 0, rp = 1, lm = 0.98, rm = 1, ld = 62.5, rd = 62.5, lr = 80, rr = 80})
+	local w = WheelController:new({lp = 0, rp = 1, lm = 0.98, rm = 1, ld = 62.5, rd = 62.5, lr = 80, rr = 80})
 
 	-- Setup Servos/PosMotors
 	local elevator = link.PosMotor:new(2, 600, {push = 400, botguy = 575, top = 2150, cube = 1700, lift = 900})
@@ -24,17 +25,17 @@ function main()
 	-- Move to Botguy
 	w:straight(600, -180) -- Go back
 	w:spin(900, -91) -- Spin toward botguy
-	link.wait()
+	w:wait()
 	elevator:botguy()
-	link.wait()
+	w:wait()
 	w:straight(300, 20)
 	w:straight(600, 210) -- Move straight to botguy
-	link.wait() -- Make sure we're there
+	w:wait() -- Make sure we're there
 
 	-- Pick up botguy
 	claw:closed()
 	elevator:top()
-	link.wait()
+	w:wait()
 	elevator:bmd()
 
 	-- Go back

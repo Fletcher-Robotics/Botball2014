@@ -1,4 +1,4 @@
-local M = require"createlib"
+local M = require "lualink.create_c"
 
 function M.force_wait()
 	M.sync()

@@ -1,4 +1,4 @@
-local M = require"linklib"
+local M = require "lualink.common_c"
 
 M.Servo = {}
 function M.Servo:new (port, pos_s)
