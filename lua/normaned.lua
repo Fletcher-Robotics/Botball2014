@@ -6,9 +6,9 @@ function main()
 	local w = WheelController:new({lp = 0, rp = 1, lm = 0.98, rm = 1, ld = 62.5, rd = 62.5, lr = 80, rr = 80})
 
 	-- Setup Servos/PosMotors
-	local elevator = link.PosMotor:new(2, 600, {push = 400, botguy = 575, top = 2150, cube = 1700, lift = 900})
+	local elevator = link.PosMotor:new(2, 600, {neutral = 0, push = 400, botguy = 575, top = 2100, cube = 1700, lift = 900})
 	local claw = link.Servo:new(2, {open = 1900, closed = 850})
-	local lowerClaw = link.Servo:new(3, {open = 1100, closed = 500})
+	local lowerClaw = link.Servo:new(3, {open = 1100, closed = 600})
 
 	-- Setup elevator and claw
 	elevator:push()
@@ -23,8 +23,8 @@ function main()
 	w:straight(610, 355)
 
 	-- Move to Botguy
-	w:straight(600, -180) -- Go back
-	w:spin(900, -91) -- Spin toward botguy
+	w:straight(600, -163) -- Go back
+	w:spin(900, -90) -- Spin toward botguy
 	w:wait()
 	elevator:botguy()
 	w:wait()
@@ -49,19 +49,16 @@ function main()
 	w:straight(500, 500)
 
 	-- Backup and lower
-	print("Pre")
 	lowerClaw:open()
-	print("Ran 1")
-	w:straight(300, -50)
-	print("Ran 2")
+	w:straight(300, -75)
 	elevator:cube()
 	elevator:bmd()
-	print("Ran 3")
-	--link.msleep(5000)
-	print("Ran 4")
 
 	-- Reset all
 	claw:open()
+	w:straight(300, -200)
+	elevator:neutral()
+	elevator:bmd()
 end
 
 main()
