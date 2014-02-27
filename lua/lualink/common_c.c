@@ -123,6 +123,22 @@ static int l_analog(lua_State *L) {
     return 1;
 }
 
+static int l_analog_et(lua_State *L) {
+    int p = luaL_checkint(L, 1);
+
+    lua_pushnumber(L, analog_et(p));
+
+    return 1;
+}
+
+static int l_digital(lua_State *L) {
+    int p = luaL_checkint(L, 1);
+
+    lua_pushnumber(L, digital(p));
+
+    return 1;
+}
+
 
 static const struct luaL_Reg common_c [] = {
     {"mrp", l_mrp},
@@ -142,6 +158,8 @@ static const struct luaL_Reg common_c [] = {
     {"disable_servo", l_disable_servo},
 
     {"analog", l_analog},
+    {"analog_et", l_analog_et},
+    {"digital", l_digital},
 
     {NULL, NULL}
 };
