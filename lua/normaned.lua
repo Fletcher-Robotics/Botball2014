@@ -1,9 +1,8 @@
 local link = require "lualink.common"
-local WheelController = require "lualink.wheel"
 
 function main()
 	-- Setup Wheels
-	local w = WheelController:new({lp = 0, rp = 1, lm = 0.98, rm = 1, ld = 62.5, rd = 62.5, lr = 80, rr = 80})
+	local w = (require "lualink.wheel"):new({lp = 0, rp = 1, lm = 0.98, rm = 1, ld = 62.5, rd = 62.5, lr = 80, rr = 80})
 
 	-- Setup Servos/PosMotors
 	local elevator = link.PosMotor:new(2, 600, {neutral = 0, push = 400, botguy = 575, top = 2100, cube = 1700, lift = 900})

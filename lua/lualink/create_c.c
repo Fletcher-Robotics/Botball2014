@@ -119,7 +119,7 @@ static int l_sync(lua_State *L) {
 }
 
 // Register functions
-static const struct luaL_Reg createlib [] = {
+static const struct luaL_Reg create_c [] = {
     {"connect", l_connect},
     {"disconnect", l_disconnect},
     {"stop", l_stop},
@@ -139,7 +139,7 @@ static const struct luaL_Reg createlib [] = {
     {NULL, NULL}
 };
 
-int luaopen_createlib(lua_State *L) {
-    luaL_newlib(L, createlib);
+int luaopen_lualink_create_c(lua_State *L) {
+    luaL_newlib(L, create_c);
     return 1;
 }

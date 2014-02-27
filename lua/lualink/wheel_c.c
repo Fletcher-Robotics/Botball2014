@@ -61,7 +61,7 @@ static const struct luaL_Reg wheel_c [] = {
     {NULL, NULL}
 };
 
-int luaopen_wheel_c(lua_State *L) {
+int luaopen_lualink_wheel_c(lua_State *L) {
     luaL_newlib(L, wheel_c);
     return 1;
 }

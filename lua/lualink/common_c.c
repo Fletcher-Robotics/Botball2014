@@ -146,7 +146,7 @@ static const struct luaL_Reg common_c [] = {
     {NULL, NULL}
 };
 
-int luaopen_common_c(lua_State *L) {
+int luaopen_lualink_common_c(lua_State *L) {
     luaL_newlib(L, common_c);
     return 1;
 }
