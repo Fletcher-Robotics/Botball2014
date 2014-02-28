@@ -1,0 +1,6 @@
+OpenCode
+autocompile
+README.md
+depth
+*.so
+.git*
