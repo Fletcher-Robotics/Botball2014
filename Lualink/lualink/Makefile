@@ -1,5 +1,5 @@
 CC:=gcc
-CFLAGS:= -fPIC -I/usr/local/include\
+CFLAGS:= -fPIC -I/kovan/devel/lib -I/usr/local/include\
          -O2 -include math.h
 LDFLAGS:= -lkovan -llua -shared
 

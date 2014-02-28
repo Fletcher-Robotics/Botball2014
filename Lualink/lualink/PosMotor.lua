@@ -23,7 +23,7 @@ function PosMotor:new (port, speed, pos_s)
         o[k] = function (self) self:set_position(v) end
     end
 
-    M.clear_motor_position_counter(o.p)
+    motor.clear_motor_position_counter(o.p)
     return o
 end
 
@@ -31,25 +31,25 @@ end
 -- @tparam int pos absolute position
 -- @see motor.mtp
 function PosMotor:set_position(pos)
-    M.mtp(self.p, self.s, pos)
+    motor.mtp(self.p, self.s, pos)
 end
 
 --- Wait until it has finished it's operations
 -- @see motor.bmd
 function PosMotor:bmd()
-    M.bmd(self.p)
+    motor.bmd(self.p)
 end
 
 --- Turn it off
 -- @see motor.off
 function PosMotor:off()
-    M.off(self.p)
+    motor.off(self.p)
 end
 
 --- Freeze it
 -- @see motor.freeze
 function PosMotor:freeze()
-    M.freeze(self.p)
+    motor.freeze(self.p)
 end
 
 return PosMotor

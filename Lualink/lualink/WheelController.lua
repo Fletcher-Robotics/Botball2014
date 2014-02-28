@@ -7,6 +7,7 @@ local WheelController = {}
 
 local wheel = require "lualink.wheel_c"
 local motor = require "lualink.motor"
+local time = require "lualink.time"
 
 --- WheelController constructor
 -- @tparam tab o should include left/right port (lp, rp), left/right speed mult (lm, rm),
@@ -36,7 +37,7 @@ end
 -- @tparam int dist distance
 function WheelController:straight (speed, dist)
     self:both(motor.motor, speed / 25)
-    motor.msleep(40)
+    time.msleep(40)
     wheel.straight(speed, dist)
 end
 

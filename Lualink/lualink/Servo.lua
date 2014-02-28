@@ -42,4 +42,4 @@ function Servo:disable ()
 	servo.disable_servo(self.p)
 end
 
-return M
+return Servo
