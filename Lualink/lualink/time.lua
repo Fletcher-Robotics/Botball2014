@@ -1,1 +1,0 @@
-return require "lualink.time_c"

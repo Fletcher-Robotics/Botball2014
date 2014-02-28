@@ -16,12 +16,12 @@ static int l_msleep(lua_State *L) {
     return 0;
 }
 
-static const struct luaL_Reg time_c [] = {
+static const struct luaL_Reg l_time [] = {
     {"msleep", l_msleep},
     {NULL, NULL}
 };
 
-int luaopen_lualink_time_c(lua_State *L) {
-    luaL_newlib(L, time_c);
+int luaopen_lualink_time(lua_State *L) {
+    luaL_newlib(L, l_time);
     return 1;
 }

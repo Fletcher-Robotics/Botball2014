@@ -44,14 +44,14 @@ static int l_digital(lua_State *L) {
     return 1;
 }
 
-static const struct luaL_Reg sensor_c [] = {
+static const struct luaL_Reg sensor [] = {
     {"analog", l_analog},
     {"analog_et", l_analog_et},
     {"digital", l_digital},
     {NULL, NULL}
 };
 
-int luaopen_lualink_sensor_c(lua_State *L) {
-    luaL_newlib(L, sensor_c);
+int luaopen_lualink_sensor(lua_State *L) {
+    luaL_newlib(L, sensor);
     return 1;
 }

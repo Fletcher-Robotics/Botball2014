@@ -42,14 +42,14 @@ static int l_disable_servo(lua_State *L) {
     return 0;
 }
 
-static const struct luaL_Reg servo_c [] = {
+static const struct luaL_Reg servo [] = {
     {"set_servo_position", l_set_servo_position},
     {"enable_servo", l_enable_servo},
     {"disable_servo", l_disable_servo},
     {NULL, NULL}
 };
 
-int luaopen_lualink_servo_c(lua_State *L) {
-    luaL_newlib(L, servo_c);
+int luaopen_lualink_servo(lua_State *L) {
+    luaL_newlib(L, servo);
     return 1;
 }

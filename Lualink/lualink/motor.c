@@ -132,7 +132,7 @@ static const struct luaL_Reg motor_c [] = {
     {NULL, NULL}
 };
 
-int luaopen_lualink_motor_c(lua_State *L) {
+int luaopen_lualink_motor(lua_State *L) {
     luaL_newlib(L, motor_c);
     return 1;
 }

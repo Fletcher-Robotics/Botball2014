@@ -1,15 +1,16 @@
---- @module motor
-local M = require "lualink.motor_c"
+--- Manages a positioned motor. A positioned motor acts like a servo,
+-- but it can go on continuously. Ideal for something connected to a rope
+-- or string.
+-- @classmod PosMotor
+local motor = require "lualink.motor"
 
---- PosMotor
--- @section PosMotor
-M.PosMotor = {}
+local PosMotor = {}
 
 --- PosMotor constructor
 -- @tparam int port port
 -- @tparam int speed speed used when moving the motor (1-1000)
 -- @tparam tbl pos_s positions table, in format {neutral = 0}
-function M.PosMotor:new (port, speed, pos_s)
+function PosMotor:new (port, speed, pos_s)
     if not port then error("No port argument", 2) end
 
     local o = {p = port, s = speed}
@@ -26,29 +27,29 @@ function M.PosMotor:new (port, speed, pos_s)
     return o
 end
 
---- Set PosMotor position
+--- Set position
 -- @tparam int pos absolute position
--- @see mtp
-function M.PosMotor:set_position(pos)
+-- @see motor.mtp
+function PosMotor:set_position(pos)
     M.mtp(self.p, self.s, pos)
 end
 
---- Wait until PosMotor has finished it's operations
--- @see bmd
-function M.PosMotor:bmd()
+--- Wait until it has finished it's operations
+-- @see motor.bmd
+function PosMotor:bmd()
     M.bmd(self.p)
 end
 
---- Turn off the PosMotor
--- @see off
-function M.PosMotor:off()
+--- Turn it off
+-- @see motor.off
+function PosMotor:off()
     M.off(self.p)
 end
 
---- Freeze the PosMotor
--- @see freeze
-function M.PosMotor:freeze()
+--- Freeze it
+-- @see motor.freeze
+function PosMotor:freeze()
     M.freeze(self.p)
 end
 
-return M
+return PosMotor
