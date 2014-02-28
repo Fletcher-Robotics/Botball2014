@@ -1,9 +1,15 @@
-#include <stdio.h>
+/// Motor functions
+// @module motor
 #include <lua.h>
 #include <lauxlib.h>
 #include <kovan/kovan.h>
 
-// Motors
+/// The mrp link function
+// @tparam int m port
+// @tparam int vel velocity (1-1000)
+// @tparam int pos target relative position
+// @function mrp
+// @see mrp #Functions
 static int l_mrp(lua_State *L) {
     int m = luaL_checkint(L, 1);
     int vel = luaL_checkint(L, 2);
@@ -14,6 +20,10 @@ static int l_mrp(lua_State *L) {
     return 0;
 }
 
+/// The bmd link function
+// @tparam int m port
+// @function bmd
+// @see bmd #Functions
 static int l_bmd(lua_State *L) {
     int m = luaL_checkint(L, 1);
 
@@ -22,6 +32,11 @@ static int l_bmd(lua_State *L) {
     return 0;
 }
 
+/// The motor link function
+// @tparam int m port
+// @tparam int p power (1-100)
+// @function motor
+// @see motor #Functions
 static int l_motor(lua_State *L) {
     int m = luaL_checkint(L, 1);
     int p = luaL_checkint(L, 2);
@@ -31,6 +46,11 @@ static int l_motor(lua_State *L) {
     return 0;
 }
 
+/// The mav link function
+// @tparam int m port
+// @tparam int vel velocity (-1000-1000)
+// @function mav
+// @see mav #Functions
 static int l_mav(lua_State *L) {
     int m = luaL_checkint(L, 1);
     int vel = luaL_checkint(L, 2);
@@ -40,11 +60,17 @@ static int l_mav(lua_State *L) {
     return 0;
 }
 
+/// The ao link function
+// @see ao #Functions
 static int l_ao(lua_State *L) {
     ao();
     return 0;
 }
 
+/// The off link function
+// @tparam int m port
+// @function off
+// @see off #Functions
 static int l_off(lua_State *L) {
     int m = luaL_checkint(L, 1);
 
@@ -53,6 +79,10 @@ static int l_off(lua_State *L) {
     return 0;
 }
 
+/// The freeze link function
+// @tparam int m port
+// @function freeze
+// @see freeze #Functions
 static int l_freeze(lua_State *L) {
     int m = luaL_checkint(L, 1);
 
@@ -61,6 +91,10 @@ static int l_freeze(lua_State *L) {
     return 0;
 }
 
+/// The clear_motor_position_counter link function
+// @tparam int m port
+// @function clear_motor_position_counter
+// @see clear_motor_position_counter #Functions
 static int l_clear_motor_position_counter(lua_State *L) {
     int m = luaL_checkint(L, 1);
 
@@ -69,6 +103,12 @@ static int l_clear_motor_position_counter(lua_State *L) {
     return 0;
 }
 
+/// The mtp link function
+// @tparam int m port
+// @tparam int speed speed (1-1000)
+// @tparam int pos absolute position
+// @function mtp
+// @see mtp #Functions
 static int l_mtp(lua_State *L) {
     int m = luaL_checkint(L, 1);
     int speed = luaL_checkint(L, 2);
@@ -79,68 +119,7 @@ static int l_mtp(lua_State *L) {
     return 0;
 }
 
-// Time
-static int l_msleep(lua_State *L) {
-    int msec = luaL_checkint(L, 1);
-
-    msleep(msec);
-
-    return 0;
-}
-
-// Servos
-static int l_set_servo_position(lua_State *L) {
-    int srv = luaL_checkint(L, 1);
-    int pos = luaL_checkint(L, 2);
-
-    set_servo_position(srv, pos);
-
-    return 0;
-}
-
-static int l_enable_servo(lua_State *L) {
-    int p = luaL_checkint(L, 1);
-
-    enable_servo(p);
-
-    return 0;
-}
-
-static int l_disable_servo(lua_State *L) {
-    int p = luaL_checkint(L, 1);
-
-    disable_servo(p);
-
-    return 0;
-}
-
-// Sensors
-static int l_analog(lua_State *L) {
-    int p = luaL_checkint(L, 1);
-
-    lua_pushnumber(L, analog(p));
-
-    return 1;
-}
-
-static int l_analog_et(lua_State *L) {
-    int p = luaL_checkint(L, 1);
-
-    lua_pushnumber(L, analog_et(p));
-
-    return 1;
-}
-
-static int l_digital(lua_State *L) {
-    int p = luaL_checkint(L, 1);
-
-    lua_pushnumber(L, digital(p));
-
-    return 1;
-}
-
-
-static const struct luaL_Reg common_c [] = {
+static const struct luaL_Reg motor_c [] = {
     {"mrp", l_mrp},
     {"bmd", l_bmd},
     {"motor", l_motor},
@@ -150,21 +129,10 @@ static const struct luaL_Reg common_c [] = {
     {"clear_motor_position_counter", l_clear_motor_position_counter},
     {"mtp", l_mtp},
     {"mav", l_mav},
-
-    {"msleep", l_msleep},
-
-    {"set_servo_position", l_set_servo_position},
-    {"enable_servo", l_enable_servo},
-    {"disable_servo", l_disable_servo},
-
-    {"analog", l_analog},
-    {"analog_et", l_analog_et},
-    {"digital", l_digital},
-
     {NULL, NULL}
 };
 
-int luaopen_lualink_common_c(lua_State *L) {
-    luaL_newlib(L, common_c);
+int luaopen_lualink_motor_c(lua_State *L) {
+    luaL_newlib(L, motor_c);
     return 1;
 }
