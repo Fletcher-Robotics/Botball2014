@@ -1,5 +1,6 @@
-local servo = require "lualink.servo"
 local motor = require "lualink.motor"
+local Servo = require "lualink.Servo"
+local PosMotor = require "lualink.PosMotor"
 
 function main()
 	-- Setup Wheels
@@ -9,9 +10,9 @@ function main()
 	)
 
 	-- Setup Servos/PosMotors
-	local elevator = motor.PosMotor:new(2, 600, {neutral = 0, push = 400, botguy = 575, top = 2100, cube = 1700, lift = 900})
-	local claw = servo.Servo:new(2, {open = 1900, closed = 850})
-	local lowerClaw = motor.Servo:new(3, {open = 1100, closed = 600})
+	local elevator = PosMotor:new(2, 600, {neutral = 0, push = 400, botguy = 575, top = 2100, cube = 1700, lift = 900})
+	local claw = Servo:new(2, {open = 1900, closed = 850})
+	local lowerClaw = Servo:new(3, {open = 1100, closed = 600})
 
 	-- Setup elevator and claw
 	elevator:push()
