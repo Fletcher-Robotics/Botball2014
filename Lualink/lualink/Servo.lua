@@ -10,9 +10,9 @@ function Servo:new (port, pos_s)
 	if not port then error("No port argument", 2) end
 
 	local o = {p = port}
-	setmetatable(o, self)
 	self.__index = self
 	self.__gc = function (o) o:disable() end
+	setmetatable(o, self)
 
 	-- Setup posistions
 	for k,v in pairs(pos_s) do
@@ -31,12 +31,14 @@ function Servo:set_position (pos)
 end
 
 --- Enable Servo
+-- Automatically executed by constructor
 -- @see servo.enable_servo
 function Servo:enable ()
 	servo.enable_servo(self.p)
 end
 
 --- Disable Servo
+-- Automatically executed by finalizer
 -- @see servo.disable_servo
 function Servo:disable ()
 	servo.disable_servo(self.p)

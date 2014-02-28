@@ -5,6 +5,10 @@ USER=stephen
 IP=192.168.1.7
 DIR=Development/Botball2014
 
-rsync -P --delete -rl -e ssh --exclude-from=.exclude \
+rsync -P --delete -rl -e ssh --exclude-from=.exclude --delete-excluded \
   $USER@$IP:/home/$USER/$DIR/. .
-lua $1
+
+if [ $# -eq 1 ]; then
+	lua $1
+	lua -e "(require 'lualink.motor').ao()"
+fi

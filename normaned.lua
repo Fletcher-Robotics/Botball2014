@@ -66,5 +66,3 @@ function main()
 end
 
 main()
-collectgarbage()
-motor.ao()

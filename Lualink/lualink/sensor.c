@@ -33,13 +33,13 @@ static int l_analog_et(lua_State *L) {
 
 /// The digital link function
 // @tparam int port port
-// @treturn int digital value
+// @treturn bool digital value
 // @function digital
 // @see digital #Functions
 static int l_digital(lua_State *L) {
     int p = luaL_checkint(L, 1);
 
-    lua_pushinteger(L, digital(p));
+    lua_pushboolean(L, digital(p));
 
     return 1;
 }

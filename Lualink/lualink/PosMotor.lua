@@ -14,9 +14,9 @@ function PosMotor:new (port, speed, pos_s)
     if not port then error("No port argument", 2) end
 
     local o = {p = port, s = speed}
-    setmetatable(o, self)
     self.__index = self
     self.__gc = function (o) o:off() end
+    setmetatable(o, self)
 
     -- Setup positions
     for k,v in pairs(pos_s) do
