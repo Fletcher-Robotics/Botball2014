@@ -8,8 +8,8 @@ file = "../lualink"
 merge = true
 sort = true
 
-local ldoctext, ldoc = "KIPR Manual: %s", "http://goo.gl/vVaGB8"
+local ldoctext, ldoc = "KIPR Manual: %s", "http://goo.gl/vVaGB8#"
 
-custom_see_handler('^([%w_]+) (#[%w_]+)$', function(name, section)
-    return ldoctext:format(name), ldoc .. section
+custom_see_handler('^k:([%w_]+)$', function(name)
+    return ldoctext:format(name), ldoc .. name
 end)

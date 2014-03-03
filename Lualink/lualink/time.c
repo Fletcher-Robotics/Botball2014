@@ -7,7 +7,7 @@
 /// The msleep link function
 // @tparam int msec milliseconds to sleep for
 // @function msleep
-// @see msleep #Functions
+// @see k:msleep
 static int l_msleep(lua_State *L) {
     int msec = luaL_checkint(L, 1);
 

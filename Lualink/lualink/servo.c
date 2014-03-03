@@ -8,7 +8,7 @@
 // @tparam int srv port
 // @tparam int pos position
 // @function set_servo_position
-// @see set_servo_position #Functions
+// @see k:set_servo_position
 static int l_set_servo_position(lua_State *L) {
     int srv = luaL_checkint(L, 1);
     int pos = luaL_checkint(L, 2);
@@ -21,7 +21,7 @@ static int l_set_servo_position(lua_State *L) {
 /// The enable_servo link function
 // @tparam int p port
 // @function enable_servo
-// @see enable_servo #Functions
+// @see k:enable_servo
 static int l_enable_servo(lua_State *L) {
     int p = luaL_checkint(L, 1);
 
@@ -33,7 +33,7 @@ static int l_enable_servo(lua_State *L) {
 /// The disable_servo link function
 // @tparam int p port
 // @function disable_servo
-// @see disable_servo #Functions
+// @see k:disable_servo
 static int l_disable_servo(lua_State *L) {
     int p = luaL_checkint(L, 1);
 

@@ -9,7 +9,7 @@
 // @tparam int vel velocity (1-1000)
 // @tparam int pos target relative position
 // @function mrp
-// @see mrp #Functions
+// @see k:mrp
 static int l_mrp(lua_State *L) {
     int m = luaL_checkint(L, 1);
     int vel = luaL_checkint(L, 2);
@@ -23,7 +23,7 @@ static int l_mrp(lua_State *L) {
 /// The bmd link function
 // @tparam int m port
 // @function bmd
-// @see bmd #Functions
+// @see k:bmd
 static int l_bmd(lua_State *L) {
     int m = luaL_checkint(L, 1);
 
@@ -36,7 +36,7 @@ static int l_bmd(lua_State *L) {
 // @tparam int m port
 // @tparam int p power (1-100)
 // @function motor
-// @see motor #Functions
+// @see k:motor
 static int l_motor(lua_State *L) {
     int m = luaL_checkint(L, 1);
     int p = luaL_checkint(L, 2);
@@ -50,7 +50,7 @@ static int l_motor(lua_State *L) {
 // @tparam int m port
 // @tparam int vel velocity (-1000-1000)
 // @function mav
-// @see mav #Functions
+// @see k:mav
 static int l_mav(lua_State *L) {
     int m = luaL_checkint(L, 1);
     int vel = luaL_checkint(L, 2);
@@ -61,7 +61,7 @@ static int l_mav(lua_State *L) {
 }
 
 /// The ao link function
-// @see ao #Functions
+// @see k:ao
 static int l_ao(lua_State *L) {
     ao();
     return 0;
@@ -70,7 +70,7 @@ static int l_ao(lua_State *L) {
 /// The off link function
 // @tparam int m port
 // @function off
-// @see off #Functions
+// @see k:off
 static int l_off(lua_State *L) {
     int m = luaL_checkint(L, 1);
 
@@ -82,7 +82,7 @@ static int l_off(lua_State *L) {
 /// The freeze link function
 // @tparam int m port
 // @function freeze
-// @see freeze #Functions
+// @see k:freeze
 static int l_freeze(lua_State *L) {
     int m = luaL_checkint(L, 1);
 
@@ -94,7 +94,7 @@ static int l_freeze(lua_State *L) {
 /// The clear_motor_position_counter link function
 // @tparam int m port
 // @function clear_motor_position_counter
-// @see clear_motor_position_counter #Functions
+// @see k:clear_motor_position_counter
 static int l_clear_motor_position_counter(lua_State *L) {
     int m = luaL_checkint(L, 1);
 
@@ -108,7 +108,7 @@ static int l_clear_motor_position_counter(lua_State *L) {
 // @tparam int speed speed (1-1000)
 // @tparam int pos absolute position
 // @function mtp
-// @see mtp #Functions
+// @see k:mtp
 static int l_mtp(lua_State *L) {
     int m = luaL_checkint(L, 1);
     int speed = luaL_checkint(L, 2);

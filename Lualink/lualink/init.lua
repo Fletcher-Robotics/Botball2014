@@ -1,3 +1,5 @@
+--- Entry point for lualink
+-- @module lualink
 local M = {}
 
 M.motor = require "lualink.motor"

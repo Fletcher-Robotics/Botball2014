@@ -9,7 +9,7 @@
 // @tparam int port port
 // @treturn int analog value
 // @function analog
-// @see analog #Functions
+// @see k:analog
 static int l_analog(lua_State *L) {
     int p = luaL_checkint(L, 1);
 
@@ -22,7 +22,6 @@ static int l_analog(lua_State *L) {
 // @tparam int port port
 // @treturn int analog value
 // @function analog_et
-// @see analog_et #Functions
 static int l_analog_et(lua_State *L) {
     int p = luaL_checkint(L, 1);
 
@@ -35,7 +34,7 @@ static int l_analog_et(lua_State *L) {
 // @tparam int port port
 // @treturn bool digital value
 // @function digital
-// @see digital #Functions
+// @see k:digital
 static int l_digital(lua_State *L) {
     int p = luaL_checkint(L, 1);
 
