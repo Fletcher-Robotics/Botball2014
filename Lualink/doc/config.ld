@@ -7,6 +7,7 @@ dir = 'api'
 file = "../lualink"
 merge = true
 sort = true
+style = '!pale'
 
 local ldoctext, ldoc = "KIPR Manual: %s", "http://goo.gl/vVaGB8#"
 
