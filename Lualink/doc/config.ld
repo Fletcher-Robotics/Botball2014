@@ -7,7 +7,10 @@ dir = 'api'
 file = "../lualink"
 merge = true
 sort = true
+sort_modules = true
+topics = 'manual'
 style = '!pale'
+use_markdown_titles = true
 
 local ldoctext, ldoc = "KIPR Manual: %s", "http://goo.gl/vVaGB8#"
 
