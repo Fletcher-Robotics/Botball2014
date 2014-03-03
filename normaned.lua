@@ -1,7 +1,5 @@
 -- Import lualink (http://mml.stephenmac.com/static/lualink/) libraries
-local motor = require "lualink.motor"
-local Servo = require "lualink.Servo"
-local PosMotor = require "lualink.PosMotor"
+local managers = require "lualink.managers"
 
 function main()
 	-- Setup Wheels using a WheelController
@@ -20,10 +18,10 @@ function main()
 	--   - top    : highest position possible, for carrying botbuy above the cube
 	--   Note: PosMotor contructor automatically resets the position counter, so elevator:neutral() at this point
 	--     would do nothing.
-	local elevator = PosMotor:new(2, 600, {neutral = 0, push = 400, botguy = 575, cube = 1700, top = 2100})
+	local elevator = managers.PosMotor:new(2, 600, {neutral = 0, push = 400, botguy = 575, cube = 1700, top = 2100})
 	-- Claws: On ports 2 and 3, both are auto-enabled by Servo constructor
-	local claw = Servo:new(2, {open = 1900, closed = 850})
-	local lowerClaw = Servo:new(3, {open = 1100, closed = 600})
+	local claw = managers.Servo:new(2, {open = 1900, closed = 850})
+	local lowerClaw = managers.Servo:new(3, {open = 1100, closed = 600})
 
 	-- Setup elevator and claw
 	elevator:push()
