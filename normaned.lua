@@ -1,4 +1,4 @@
--- Import lualink (http://mml.stephenmac.com/static/lualink/) libraries
+-- Import lualink (http://mml.stephenmac.com/static/lualink/) manager library
 local managers = require "lualink.managers"
 
 function main()
