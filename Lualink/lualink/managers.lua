@@ -2,24 +2,22 @@
 -- @module manager
 
 local M = {}
+
+local Object = require "lualink.Object"
 local sensor = require "lualink.sensor"
 local servo = require "lualink.servo"
 local motor = require "lualink.motor"
 
 --- Sensor manager
 -- @type Sensor
-M.Sensor = {}
+M.Sensor = Object:subclass("Sensor")
 
 --- Sensor constructor
 -- @tparam int port sensor port
-function M.Sensor:new(port)
+function M.Sensor:__init__(port)
     if not port then error("No port argument", 2) end
 
-    local o = {p = port}
-    self.__index = self
-    setmetatable(o, self)
-
-    return o
+    self.p = port
 end
 
 --- Gets the value of the sensor, defaults to using analog
@@ -40,27 +38,25 @@ end
 -- but it can go on continuously. Ideal for something connected to a rope
 -- or string.
 -- @type PosMotor
-M.PosMotor = {}
+M.PosMotor = Object:subclass('PosMotor')
 
 --- PosMotor constructor
 -- @tparam int port port
 -- @tparam int speed speed used when moving the motor (1-1000)
 -- @tparam tbl pos_s positions table, in format {neutral = 0}
-function M.PosMotor:new (port, speed, pos_s)
+function M.PosMotor:__init__(port, speed, pos_s)
     if not port then error("No port argument", 2) end
 
-    local o = {p = port, s = speed}
-    self.__index = self
-    self.__gc = function (o) o:off() end
-    setmetatable(o, self)
+    -- Setup vars
+    self.p = port
+    self.s = speed
 
     -- Setup positions
     for k,v in pairs(pos_s) do
-        o[k] = function (self) self:set_position(v) end
+        self[k] = function (self) self:set_position(v) end
     end
 
-    motor.clear_motor_position_counter(o.p)
-    return o
+    motor.clear_motor_position_counter(self.p)
 end
 
 --- Set position
@@ -88,29 +84,29 @@ function M.PosMotor:freeze()
     motor.freeze(self.p)
 end
 
+function M.PosMotor.__meta__:__gc()
+    self:off()
+end
+
 
 --- Manager for a servo. Similar to a PosMotor.
 -- @type Servo
-M.Servo = {}
+M.Servo = Object:subclass('Servo')
 
 --- Servo constructor
 -- @tparam int port port
 -- @tparam tbl pos_s positions table, in format {neutral = 0}
-function M.Servo:new (port, pos_s)
+function M.Servo.__init__ (port, pos_s)
     if not port then error("No port argument", 2) end
 
-    local o = {p = port}
-    self.__index = self
-    self.__gc = function (o) o:disable() end
-    setmetatable(o, self)
+    self.p = port
 
     -- Setup posistions
     for k,v in pairs(pos_s) do
         o[k] = function (self) self:set_position(v) end
     end
 
-    o:enable()
-    return o
+    self:enable()
 end
 
 --- Set position of Servo
@@ -132,6 +128,10 @@ end
 -- @see servo.disable_servo
 function M.Servo:disable ()
     servo.disable_servo(self.p)
+end
+
+function M.Servo.__meta__:__gc ()
+    self:disable()
 end
 
 return M

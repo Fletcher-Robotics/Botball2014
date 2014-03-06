@@ -9,6 +9,6 @@ rsync -P --delete -rl -e ssh --exclude-from=.exclude --delete-excluded \
   $USER@$IP:/home/$USER/$DIR/. .
 
 if [ $# -eq 1 ]; then
-	lua $1
+	time lua $1
 	lua -e "(require 'lualink.motor').ao()"
 fi
