@@ -66,6 +66,13 @@ function M.PosMotor:set_position(pos)
     motor.mtp(self.p, self.s, pos)
 end
 
+--- Change the speed of PosMotor movement
+-- @tparam int speed speed used when moving the motor (1-1000)
+-- @see PosMotor:__init__
+function M.PosMotor:set_speed(speed)
+    self.s = speed
+end
+
 --- Wait until it has finished it's operations
 -- @see motor.bmd
 function M.PosMotor:bmd()
@@ -96,14 +103,14 @@ M.Servo = Object:subclass('Servo')
 --- Servo constructor
 -- @tparam int port port
 -- @tparam tbl pos_s positions table, in format {neutral = 0}
-function M.Servo.__init__ (port, pos_s)
+function M.Servo:__init__ (port, pos_s)
     if not port then error("No port argument", 2) end
 
     self.p = port
 
     -- Setup posistions
     for k,v in pairs(pos_s) do
-        o[k] = function (self) self:set_position(v) end
+        self[k] = function (self) self:set_position(v) end
     end
 
     self:enable()
