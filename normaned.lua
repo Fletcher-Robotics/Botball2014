@@ -37,7 +37,7 @@ function main()
 
 	-- Move to Botguy
 	w:straight(600, -163) -- Go back
-	w:spin(900, -90) -- Spin toward botguy
+	w:spin(400, -90) -- Spin toward botguy
 	w:wait()
 	elevator:botguy() -- Raise the elevator to botguy position
 	w:straight(300, 20)
@@ -54,8 +54,8 @@ function main()
 	w:spin(900, 107) -- Spin toward the cube
 
 	--Naviagte cube to green tape
-	w.straight(400, 70)
-	mssleep(750)	
+	w:straight(400, 70)
+	msleep(750)	
 	w:straight(300, 750)
 	lowerClaw:closed() -- Close the lower claw so the cube doesn't shift
 	w:spin(900, 60)

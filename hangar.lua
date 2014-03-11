@@ -62,29 +62,25 @@ function main()
 	create.drive_segment(200, 300) -- Go straight along pipe
 	create.drive_arc(200, -160, -45) -- Sepentine to right hangar
 	create.drive_arc(200, 160, 43)
-	arm:botbar()
-	arm:bmd()
+	arm:botbar() -- Move down to the bottom bar
+	arm:bmd() -- Block until the arm is in position
 
-	-- Go for ble two
-	claw:closed()
-	arm:set_speed(350)
-	arm:over_botbar()
-	arm:set_speed(500)
-	msleep(220)
-	create.drive_segment(100, 150)
-	arm:down()
-	arm:bmd()
-	create.drive_segment(200, -350)
-	arm:thread_the_needle()
-	arm:bmd()
-	create.drive_segment(200, 200)
-	arm:topbar()
-	arm:bmd()
-	create.drive_segment(200, -150)
-	create.spin_angle(200, 5)
-	create.force_wait()
-
-
+	-- Go for second blue
+	claw:closed() -- Capture blue hangar
+	arm:set_speed(350) -- Reduce arm speed
+	arm:over_botbar() -- Start moving up
+	arm:set_speed(500) -- Restore original speed
+	msleep(220) -- Let the arm begin moving up
+	create.drive_segment(100, 150) -- Go forward, so now the blue hangar is behind the white bar
+	create.force_wait() -- Ensure the arm doesn't mess with navigation
+	arm:bmd() -- Make sure the arm is in position
+	arm:down() arm:bmd() -- Go all the way to the button, under the white bar
+	create.drive_segment(200, -350) -- Begin to move back again
+	arm:thread_the_needle() arm:bmd() -- Put the arm at the position to go between the bars
+	create.drive_segment(200, 200) -- Put hangar between white bars
+	arm:topbar() arm:bmd() -- Raise hangars to correct location
+	create.drive_segment(200, -150) -- Move back so now hook is over bar
+	create.spin_angle(200, 5) -- Spin a tad
 
 	-- Cleanup
 	create.force_wait()
