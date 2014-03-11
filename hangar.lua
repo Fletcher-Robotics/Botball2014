@@ -5,7 +5,7 @@ local msleep = require("lualink.time").msleep
 function main()
 	-- Initialize the arm and claw
 	local claw = manager.Servo(0, {open = 700, closed = 1450})
-	local arm = manager.PosMotor(0, 500, {neutral = 0, max=1300, topbar=1250, botbar=-190, over_botbar=-10})
+	local arm = manager.PosMotor(0, 500, {neutral = 0, max=1300, topbar=1250, botbar=-190, over_botbar=-10, down=-400, thread_the_needle=800})
 	arm:max() -- Put at max
 
 	-- Navigate to hangers
@@ -29,8 +29,9 @@ function main()
 	create.drive_segment(200, -110) -- Back up until we hit the pipe to line up
 	create.drive_segment(150, 180) -- Go forward, so that we are in place to get left hangar
 	create.spin_angle(150, -90) -- Spin toward the hangars
-	arm:botbar() -- Start moving arm down to blue hangar level
 	create.drive_segment(150, -150) -- Line up again, on the back pipe
+	arm:botbar() -- Start moving arm down to blue hangar level
+	arm:bmd() --Wait for the arm to move all the way down to move
 	create.accel_straight(0, 300, 600) -- Move all the way to the left blue hangar
 	create.force_wait() -- Make sure the arm doesn't confuse the create
 	arm:bmd() -- Wait until the arm is completely finished moving
@@ -58,11 +59,32 @@ function main()
 	create.spin_angle(50, 2.5) -- Move back to the correct orientation
 	arm:max() arm:bmd() -- Move arm up so we don't get caught on bar
 	create.accel_straight(0, -230, 900) -- Go all the way back.
-	--[[create.spin_angle(100, 90)
-	create.drive_segment(100, -25)
-	create.drive_segment(100, 70)
-	create.spin_angle(100, -90)
-	create.drive_segment(100, -7)]]--
+	create.drive_segment(200, 300) -- Go straight along pipe
+	create.drive_arc(200, -160, -45) -- Sepentine to right hangar
+	create.drive_arc(200, 160, 43)
+	arm:botbar()
+	arm:bmd()
+
+	-- Go for ble two
+	claw:closed()
+	arm:set_speed(350)
+	arm:over_botbar()
+	arm:set_speed(500)
+	msleep(220)
+	create.drive_segment(100, 150)
+	arm:down()
+	arm:bmd()
+	create.drive_segment(200, -350)
+	arm:thread_the_needle()
+	arm:bmd()
+	create.drive_segment(200, 200)
+	arm:topbar()
+	arm:bmd()
+	create.drive_segment(200, -150)
+	create.spin_angle(200, 5)
+	create.force_wait()
+
+
 
 	-- Cleanup
 	create.force_wait()
