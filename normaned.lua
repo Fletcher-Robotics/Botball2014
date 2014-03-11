@@ -51,13 +51,15 @@ function main()
 
 	-- Go back to black tape position
 	w:straight(600, -240)
-	w:spin(900, 100) -- Spin toward the cube
+	w:spin(900, 107) -- Spin toward the cube
 
 	--Naviagte cube to green tape
-	w:straight(590, 820)
+	w.straight(400, 70)
+	mssleep(750)	
+	w:straight(300, 750)
 	lowerClaw:closed() -- Close the lower claw so the cube doesn't shift
 	w:spin(900, 60)
-	w:straight(500, 500)
+	w:straight(200, 500)
 
 	-- Backup and lower
 	lowerClaw:open()
