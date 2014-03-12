@@ -5,7 +5,7 @@ local msleep = require("lualink.time").msleep
 function main()
 	-- Initialize the arm and claw
 	local claw = manager.Servo(0, {open = 700, closed = 1450})
-	local arm = manager.PosMotor(0, 500, {neutral = 0, max=1300, topbar=1250, botbar=-190, over_botbar=-10, down=-400, thread_the_needle=800})
+	local arm = manager.PosMotor(0, 500, {neutral = 0, max=1350, topbar=1250, botbar=-190, over_botbar=-10, down=-400, thread_the_needle=800})
 	arm:max() -- Put at max
 
 	-- Navigate to hangers
@@ -26,16 +26,16 @@ function main()
 	create.accel_straight(0, -230, 900) -- Go all the way back
 	create.drive_segment(75, 50) -- Go slightly forward, so that we don't scrape
 	create.spin_angle(150, 90) -- Spin toward the left
-	create.drive_segment(200, -110) -- Back up until we hit the pipe to line up
-	create.drive_segment(150, 180) -- Go forward, so that we are in place to get left hangar
+	create.drive_segment(200, -130) -- Back up until we hit the pipe to line up
+	create.drive_segment(150, 175) -- Go forward, so that we are in place to get left hangar
 	create.spin_angle(150, -90) -- Spin toward the hangars
 	create.drive_segment(150, -150) -- Line up again, on the back pipe
+	create.force_wait()
 	arm:botbar() -- Start moving arm down to blue hangar level
-	arm:bmd() --Wait for the arm to move all the way down to move
+	arm:bmd()
 	create.accel_straight(0, 300, 600) -- Move all the way to the left blue hangar
 	create.force_wait() -- Make sure the arm doesn't confuse the create
-	arm:bmd() -- Wait until the arm is completely finished moving
-
+	
 	-- Go for blue one
 	claw:closed() -- Close the claw
 	msleep(100) -- Wait till it's closed
@@ -47,7 +47,7 @@ function main()
 	create.force_wait() -- Ensure the create has finished it's instructions
 	arm:max() -- Start moving the arm up
 	arm:bmd() -- Make sure it's at the top
-	create.drive_segment(100, 350) -- Move forward, a little further to account for the lost arm length
+	create.drive_segment(100, 370) -- Move forward, a little further to account for the lost arm length
 	create.force_wait() -- Ensure the create has finished it's instructions
 	arm:topbar() -- Hang the hangars
 	arm:bmd() -- Wait untill it's hung
@@ -57,13 +57,16 @@ function main()
 
 	-- Navigate to second blue
 	create.spin_angle(50, 2.5) -- Move back to the correct orientation
-	arm:max() arm:bmd() -- Move arm up so we don't get caught on bar
+	arm:topbar() arm:bmd() -- Move arm up so we don't get caught on bar
 	create.accel_straight(0, -230, 900) -- Go all the way back.
-	create.drive_segment(200, 300) -- Go straight along pipe
+	create.drive_segment(195, 230) -- Go straight along pipe
 	create.drive_arc(200, -160, -45) -- Sepentine to right hangar
-	create.drive_arc(200, 160, 43)
+	create.drive_arc(200, 160, 40)
+	create.force_wait()
+	arm:bmd()
 	arm:botbar() -- Move down to the bottom bar
 	arm:bmd() -- Block until the arm is in position
+	create.force_wait()
 
 	-- Go for second blue
 	claw:closed() -- Capture blue hangar
@@ -80,7 +83,7 @@ function main()
 	create.drive_segment(200, 200) -- Put hangar between white bars
 	arm:topbar() arm:bmd() -- Raise hangars to correct location
 	create.drive_segment(200, -150) -- Move back so now hook is over bar
-	create.spin_angle(200, 5) -- Spin a tad
+	create.spin_angle(200, 2.5) -- Spin a tad
 
 	-- Cleanup
 	create.force_wait()
