@@ -2,10 +2,10 @@
 # Copies all files (except those in .exclude) to the local computer from
 # computer at IP
 
-if [ $1 = "botball" ]; then
-	USER=botball
-	IP=192.168.1.2
-	DIR=Desktop/Botball2014
+if [ $1 = "lubuntu" ]; then
+	USER=stephen
+	IP=192.168.1.93
+	DIR=Development/Botball2014
 else
 	USER=stephen
 	IP=192.168.1.7
