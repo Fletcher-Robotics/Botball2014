@@ -7,19 +7,20 @@ function main()
 	local claw = manager.Servo(0, {open = 800, closed = 1650})
 	local arm = manager.PosMotor(0, 450, {
 		neutral = 0, down=-400, botbar=-145, over_botbar=180,
-		thread_the_needle=850, max=1500, topbar=1350,
-		second_botbar=-200, second_over_botbar=-10
+		thread_the_needle=850, max=1500, topbar=1350, last=1250, 
+		second_botbar=-340, second_over_botbar=-70, --second_over_topbar=1600
 	})
 	claw:closed() -- Force closed to start with
-	arm:max() -- Put at max
-	--msleep(3500) -- Wait until the other bot is out of the way
+	arm:thread_the_needle() 
+
+	arm:max()	
 
 	-- Navigate to hangers
 	create.drive_arc(255, -400, -55) -- Move out of starting box
 	create.drive_arc(255, 520, 52) -- Move toward middle, face left
 	create.drive_segment(170, 220) -- Now at middle
 	create.spin_angle(160, -87.8) -- Spin toward hangars
-	create.drive_segment(150, 225) -- Move to the hangars
+	create.drive_segment(150, 210) -- Move to the hangars
 	create.force_wait() -- Make sure everything is done
 
 	-- Hang greens
@@ -38,7 +39,8 @@ function main()
 	create.drive_segment(200, -130) -- Line up again, on the back pipe
 	create.force_wait()
 	arm:botbar() arm:bmd() -- Start moving arm down to blue hangar level
-	create.accel_straight(0, 380, 570) -- Move all the way to the left blue hangar
+	create.accel_straight(0, 380, 575) -- Move all the way to the left blue hangar
+	create.spin_angle(50, -1.5) -- doubly sure we are skr8 on the hanger
 	create.force_wait() -- Make sure the arm doesn't confuse the create
 	
 	-- Go for blue one
@@ -52,11 +54,12 @@ function main()
 	create.force_wait() -- Ensure the create has finished it's instructions
 	arm:topbar() arm:bmd() -- Start moving the arm up
 	arm:max() -- Make it go far up to the target position
-	create.spin_angle(50, -1.5) -- Make sure it's on the bar
+	create.spin_angle(50, -3) -- Make sure it's on the bar
 	create.drive_segment(100, 390) -- Move forward, a little further to account for the lost arm length
 	create.force_wait() -- Ensure the create has finished it's instructions
-	arm:topbar() arm:bmd() -- Hang the hangars
+	arm:last() arm:bmd() -- Hang the hangars
 	create.force_wait() -- Wait before we open the claw
+	create.drive_segment(100, 15)
 	claw:open() -- Drop the hangars
 
 	-- Navigate to second blue
@@ -68,12 +71,12 @@ function main()
 	create.drive_segment(200, 20)
 	create.spin_angle(200, -90)
 	create.drive_segment(150, -60)
-	create.drive_segment(250, 200) -- Go straight parallel to pipe
+	create.drive_segment(250, 185) -- Go straight parallel to pipe
 	create.drive_arc(240, -180, -45) -- Sepentine to right hangar
 	create.drive_arc(240, 180, 34)
 	create.force_wait()
-
 	arm:second_botbar() arm:bmd() -- Move down to the bottom bar
+	create.spin_angle(50, 2)
 
 	-- Go for second blue
 	claw:closed() -- Capture blue hangar
@@ -85,13 +88,20 @@ function main()
 	create.force_wait() -- Ensure the arm doesn't mess with navigation
 	arm:bmd() -- Make sure the arm is in position
 	arm:down() arm:bmd() -- Go all the way to the button, under the white bar
-	create.drive_segment(200, -350) -- Begin to move back again
+	create.drive_segment(200, -150) -- Begin to move back again
+	msleep(800) -- Make sure we go back a bit before moving up
 	arm:thread_the_needle() arm:bmd() -- Put the arm at the position to go between the bars
 	create.force_wait()
-	create.drive_segment(200, 500) -- Put hangar between white bars
+	create.drive_segment(200, 300) -- Put hangar between white bars
+	msleep(1000)
+	create.force_wait()
 	arm:topbar() arm:bmd() -- Raise hangars to correct location
-	create.drive_segment(200, -150) -- Move back so now hook is over bar
+	arm:max()
+	create.drive_segment(200, -300) -- Move back so now hook is over bar
 	create.spin_angle(200, 2.5) -- Spin a tad
+	create.force_wait()
+	arm:topbar() -- Put the hanger on the topbar
+	claw:open() -- Release the hanger
 
 	-- Cleanup
 	create.force_wait()

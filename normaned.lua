@@ -35,15 +35,16 @@ function main()
 
 	-- Push Cube
 	w:straight(400, 20) -- Add 20 if you merge
-	w:straight(610, 315)
+	w:straight(610, 330)
 
 	-- Move to Botguy
 	w:straight(600, -150) -- Go back
-	w:spin(550, -93) -- Spin toward botguy
+	w:spin(590, -90) -- Spin toward botguy
 	w:wait()
+	w:spin(590, -4) --correcting!
 	elevator:botguy() -- Raise the elevator to botguy position
 	w:straight(300, 20)
-	w:straight(600, 210) -- Move straight to botguy
+	w:straight(600, 240) -- Move straight to botguy
 	w:wait() -- Make sure we're there
 
 	-- Pick up botguy
@@ -53,7 +54,7 @@ function main()
 
 	-- Go back to black tape position
 	w:straight(600, -240)
-	w:spin(900, 100) -- Spin toward the cube
+	w:spin(900, 93) -- Spin toward the cube
 	w:straight(300, 40)
 
 	--Naviagte cube to green tape
