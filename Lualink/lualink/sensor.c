@@ -137,7 +137,7 @@ static const struct luaL_Reg sensor [] = {
     {"get_object_center", l_get_object_center},
     {"get_object_confidence", l_get_object_confidence},
     {"get_object_area", l_get_object_area},
-    
+
     {NULL, NULL}
 };
 

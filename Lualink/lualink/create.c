@@ -55,6 +55,20 @@ static int l_drive(lua_State *L) {
     return 0;
 }
 
+/// The drive_direct link function
+// @function drive_direct
+// @see k:create_drive_direct
+// @tparam int r_speed right wheel speed
+// @tparam int l_speed left wheel speed
+static int l_drive_direct(lua_State *L) {
+    int r_speed = luaL_checkint(L, 1);
+    int l_speed = luaL_checkint(L, 2);
+
+    create_drive_direct(r_speed, l_speed);
+
+    return 0;
+}
+
 /// The drive_straight link function
 // @function drive_straight
 // @see k:create_drive_straight
@@ -204,6 +218,7 @@ static const struct luaL_Reg create [] = {
 
     {"stop", l_stop},
     {"drive", l_drive},
+    {"drive_direct", l_drive_direct},
     {"drive_straight", l_drive_straight},
     {"drive_segment", l_drive_segment},
     {"drive_arc", l_drive_arc},
