@@ -10,10 +10,10 @@ function main()
 		 ld = 200, rd = 200, lr = 80, rr = 80})
 	
 	--w:straight(500, 1000)
-	w:both(motor.motor, 100)
+	w:both(motor.motor, 300)
 	msleep(3000)
 	w:both(motor.off)
-	w:both(motor.motor, -100)
+	--w:both(motor.motor, -100)
 	msleep(3000)
 	w:both(motor.off)
 end

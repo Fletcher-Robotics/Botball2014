@@ -30,12 +30,12 @@ function main()
 
 	-- Move to cube
 	w:straight(200, 40)
-	w:straight(400, 345)
-	w:arc(600, 200, 90.4)
+	w:straight(550, 345)
+	w:arc(710, 200, 90.4)
 
 	-- Push Cube
 	w:straight(400, 20) -- Add 20 if you merge
-	w:straight(610, 330)
+	w:straight(710, 330)
 
 	-- Move to Botguy
 	w:straight(600, -150) -- Go back
@@ -61,7 +61,7 @@ function main()
 	w:straight(350, 820)
 	lowerClaw:closed() -- Close the lower claw so the cube doesn't shift
 	w:spin(900, 60)
-	w:straight(350, 500)
+	w:straight(600, 500)
 
 	-- Backup and lower
 	lowerClaw:open()
