@@ -56,7 +56,7 @@ function M.PosMotor:__init__(port, speed, pos_s)
         self[k] = function (self) self:set_position(v) end
     end
 
-    motor.clear_motor_position_counter(self.p)
+    self:clear_position()
 end
 
 --- Set position
@@ -64,6 +64,12 @@ end
 -- @see motor.mtp
 function M.PosMotor:set_position(pos)
     motor.mtp(self.p, self.s, pos)
+end
+
+--- Clear position
+-- @see motor.clear_motor_position_counter
+function M.PosMotor:clear_position()
+    motor.clear_motor_position_counter(self.p)
 end
 
 --- Change the speed of PosMotor movement
