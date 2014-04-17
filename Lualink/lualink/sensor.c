@@ -126,6 +126,19 @@ static int l_get_object_area(lua_State *L) {
     return 1;
 }
 
+/// The get_object_count link function
+// @tparam int channel configuration channel
+// @treturn int count number of objects on channel
+// @function get_object_count
+// @see k:get_object_count
+static int l_get_object_count(lua_State *L) {
+    int channel = luaL_checkint(L, 1);
+
+    lua_pushinteger(L, get_object_count(channel));
+
+    return 1;
+}
+
 static const struct luaL_Reg sensor [] = {
     {"analog", l_analog},
     {"analog_et", l_analog_et},
@@ -137,6 +150,7 @@ static const struct luaL_Reg sensor [] = {
     {"get_object_center", l_get_object_center},
     {"get_object_confidence", l_get_object_confidence},
     {"get_object_area", l_get_object_area},
+    {"get_object_count", l_get_object_count},
 
     {NULL, NULL}
 };
