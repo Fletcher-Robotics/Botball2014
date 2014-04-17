@@ -1,14 +1,15 @@
 local create = require("lualink.create")
 local manager = require("lualink.managers")
 local msleep = require("lualink.time").msleep
+local motor = require("lualink.motor")
 
 function main()
 	-- Initialize the arm and claw
 	local claw = manager.Servo(0, {open = 900, closed = 1875, sorta_open = 1300, cube_open = 1100})
 	local arm = manager.PosMotor(0, 600, {
-		neutral = 0, down=-600, botbar=-310, over_botbar=180,
-		thread_the_needle=850, max=1450, topbar=1350, last=1150, 
-		second_botbar=-468, second_over_botbar=-100, cube=950,
+		neutral = 0, down=-2100, botbar=-310, over_botbar=180,
+		thread_the_needle=-500, max=1450, topbar=1350, last=1150, 
+		second_botbar=-1815, second_over_botbar=-1550, second_hang=-180,
 	} )
 	claw:closed() -- Force closed to start with
 	arm:thread_the_needle() 
@@ -32,7 +33,7 @@ function main()
 	-- Move back and line up
 	create.accel_straight(0, -230, 900) -- Go all the way back
 	create.drive_segment(75, 50) -- Go slightly forward, so that we don't scrape
-	create.spin_angle(150, 90) -- Spin toward the left
+	create.spin_angle(125, 90) -- Spin toward the left
 	create.drive_segment(250, -140) -- Back up until we hit the pipe to line up
 	create.drive_segment(150, 178) -- Go forward, so that we are in place to get left hangar
 	create.spin_angle(170, -90) -- Spin toward the hangars
@@ -54,7 +55,7 @@ function main()
 	msleep(330) -- Let the arm begin moving up
 	create.drive_segment(100, -250) -- Move back, clearing the bottom bar
 	create.force_wait() -- Ensure the create has finished it's instructions
-	--arm:topbar() arm:bmd() -- Start moving the arm up
+	arm:topbar() arm:bmd() -- Start moving the arm up
 	arm:bmd() arm:max() arm:bmd() -- Make it go far up to the target position
 	create.force_wait()
 	create.spin_angle(50, -1.8) -- Make sure it's on the bar
@@ -70,7 +71,7 @@ function main()
 	create.accel_straight(0, -225, 910) -- Go all the way back.
 	claw:open()
 	create.spin_angle(200, 90)
-	create.drive_segment(200, -285)
+	create.drive_segment(200, -295)
 	create.drive_segment(200, 31)
 	create.spin_angle(200, -90)
 	create.drive_segment(150, -60)
@@ -78,6 +79,7 @@ function main()
 	create.drive_arc(240, -180, -45) -- Sepentine to right hangar
 	create.drive_arc(240, 180, 34)
 	create.force_wait()
+	motor.clear_motor_position_counter(0)
 	arm:second_botbar() arm:bmd() -- Move down to the bottom bar
 	msleep(325)
 
@@ -89,7 +91,7 @@ function main()
 	msleep(220) -- Let the arm begin moving up
 	create.drive_segment(100, 150) -- Go forward, so now the blue hangar is behind the white bar
 	create.force_wait() -- Ensure the arm doesn't mess with navigation
-	arm:bmd() -- Make sure the arm is in position
+	--arm:bmd() -- Make sure the arm is in position
 	arm:down() arm:bmd() -- Go all the way to the bottom, under the white bar
 	create.drive_segment(200, -240) -- Begin to move back again
 	create.force_wait()
@@ -99,15 +101,14 @@ function main()
 	create.drive_segment(200, 300) -- Put hangar between white bars
 	msleep(1000)
 	create.force_wait()
-	arm:topbar() arm:bmd() -- Raise hangars to correct location
+	arm:neutral() arm:bmd() -- Raise hangars to correct location
 	create.drive_segment(100, -275) -- Move back so now hook is over bar
 	create.spin_angle(200, 2.5) -- Spin a tad
 	create.force_wait()
-	arm:last() -- Put the hanger on the topbar
 	claw:open() -- Release the hanger
 	
 	--Go for the orange cube
-	create.spin_angle(200, 90)
+	--[[create.spin_angle(200, 90)
 	create.drive_segment(200, 900)
 	create.spin_angle(200, -90)
 	claw:cube_open()
@@ -118,7 +119,7 @@ function main()
 	create.drive_segment(200, -400)
 	create.spin_angle(200, 90)
 	create.drive_arc(255, 400, 55) 
-	create.drive_arc(-255, -520, -54)
+	create.drive_arc(-255, -520, -54)--]]
 
 	-- Cleanup
 	create.force_wait()
