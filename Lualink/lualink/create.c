@@ -81,6 +81,19 @@ static int l_drive_straight(lua_State *L) {
     return 0;
 }
 
+/// The spin_CW and spin_CCW link functions
+// @function spin
+// @see k:create_spin_CW
+// @see k:create_spin_CCW
+// @tparam int speed speed (-500 (CCW) - 500 (CW))
+static int l_spin(lua_State *L) {
+    int speed = luaL_checkint(L, 1);
+
+    create_spin_CW(speed);
+
+    return 0;
+}
+
 /// The OpenCode drive_segment function
 // @function drive_segment
 // @tparam int speed speed (0 - 500)
@@ -220,6 +233,7 @@ static const struct luaL_Reg create [] = {
     {"drive", l_drive},
     {"drive_direct", l_drive_direct},
     {"drive_straight", l_drive_straight},
+    {"spin", l_spin},
     {"drive_segment", l_drive_segment},
     {"drive_arc", l_drive_arc},
     {"spin_angle", l_spin_angle},
