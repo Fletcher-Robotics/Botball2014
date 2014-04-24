@@ -1,55 +1,48 @@
 local create = require("lualink.create")
-local manager = require("lualink.managers")
+local managers = require("lualink.managers")
 local msleep = require("lualink.time").msleep
 local sensor = require("lualink.sensor")
 
-function spinner()
+camera_mount = managers.Servo(1, {forward = 850, right = 1800})
+function block_until_blob_in_range(chan, obj_min, obj_max, low, high)
 	repeat
-		create.force_wait()
 		sensor.camera_update()
-
-		local x, is_conf
-		if sensor.get_object_count(0) > 0 then
-			local conf = sensor.get_object_confidence(0, 0)
-			x = sensor.get_object_center(0, 0).x
-			is_conf = conf > 0.6
-
-			if is_conf and (x <= 75 or x >= 85) then
-				offset = -0.05*(x-80)
-				print("Moving " .. tostring(offset) .. " degrees",
-					  "X: " .. tostring(x),
-					  "Confidence: " .. tostring(conf)
-				)
-				create.spin_angle(100, offset)
-			end
+		local crit, count, x = false, sensor.get_object_count(chan)
+		for obj_n = obj_min, obj_max do
+			if count <= obj_n then break end
+			x = sensor.get_object_center(chan, obj_n).x
+			print(tostring(chan) .. ":" .. tostring(obj_n) .. " blob center at " .. tostring(x))
+			crit = crit or (x and x < high and x > low)
 		end
-	until x and is_conf and x < 85 and x > 75
-	create.stop()
-end
-
-function getObjX()
-	while true do
-		sensor.camera_update()
-		print(sensor.get_object_center(0, 0).x)
-	end
+	until crit
 end
 
 function drive_by()
-	create.drive_straight(100)
-	repeat
-		sensor.camera_update()
-		local x
-		if sensor.get_object_count(0) > 0 then
-			x = sensor.get_object_center(0, 0).x
-			print(x)
-		end
-	until x and x < 85 and x > 75
+	camera_mount:right()
+	create.drive_straight(180)
+	block_until_blob_in_range(0, 0, 1, 77, 83)
+end
+
+function turn_til_cube()
+	camera_mount:forward()
+	sensor.camera_update()
+	create.spin_angle(280, -95)
+	create.force_wait()
+	sensor.camera_update()
+	create.spin(-35)
+	block_until_blob_in_range(0, 0, 1, 77, 83)
 	create.stop()
 end
 
 create.connect()
 if sensor.camera_open() then
 	drive_by()
+	create.drive_segment(180, 220)
+	create.force_wait()
+	turn_til_cube()
 	sensor.camera_close()
+	create.drive_segment(180, 220)
+else
+	print("Unable to open camera")
 end
 create.disconnect()

@@ -56,6 +56,18 @@ static int l_camera_open(lua_State *L) {
     return 1;
 }
 
+/// The camera_open_device link function (no res option)
+// @tparam int number device number
+// @treturn bool success
+// @see k:camera_open_device
+static int l_camera_open_device(lua_State *L) {
+    int num = luaL_checkint(L, 1);
+
+    lua_pushboolean(L, camera_open_device(num, LOW_RES));
+
+    return 1;
+}
+
 /// The camera_close link function
 // @function camera_close
 // @see k:camera_close
@@ -145,6 +157,7 @@ static const struct luaL_Reg sensor [] = {
     {"digital", l_digital},
 
     {"camera_open", l_camera_open},
+    {"camera_open_device", l_camera_open_device},
     {"camera_close", l_camera_close},
     {"camera_update", l_camera_update},
     {"get_object_center", l_get_object_center},

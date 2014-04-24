@@ -107,20 +107,6 @@ function main()
 	create.spin_angle(200, 2.5) -- Spin a tad
 	create.force_wait()
 	claw:open() -- Release the hanger
-	
-	--Go for the orange cube
-	create.spin_angle(130, 70)
-	create.drive_segment(200, 900)
-	create.spin_angle(130, -80)
-	claw:cube_open()
-	arm:bmd()
-	arm:cube()
-	create.drive_segment(100, 300)
-	claw:closed()
-	create.drive_segment(200, -400)
-	create.spin_angle(130, 80)
-	create.drive_arc(255, 400, 55) 
-	create.drive_arc(-255, -520, -54)	
 
 	-- Cleanup
 	create.force_wait()

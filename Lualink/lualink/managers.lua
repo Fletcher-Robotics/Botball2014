@@ -97,6 +97,13 @@ function M.PosMotor:freeze()
     motor.freeze(self.p)
 end
 
+--- Move relatively to a position
+-- @tparam int pos relative position
+-- @see motor.mrp
+function M.PosMotor:mrp(pos)
+    motor.mrp(self.p, self.s, pos)
+end
+
 function M.PosMotor.__meta__:__gc()
     self:off()
 end
