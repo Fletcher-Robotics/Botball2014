@@ -29,22 +29,21 @@ function main()
 	claw:open()
 
 	-- Move to cube
-	w:straight(200, 40)
-	w:straight(550, 345)
-	w:arc(710, 200, 90.4)
+	w:straight(300, 40)
+	w:straight(950, 345)
+	w:arc(710, 200, 86.5)
 
 	-- Push Cube
-	w:straight(400, 20) -- Add 20 if you merge
-	w:straight(710, 330)
+	w:straight(350, 20)
+	w:straight(950, 320)
 
 	-- Move to Botguy
-	w:straight(600, -150) -- Go back
-	w:spin(590, -90) -- Spin toward botguy
+	w:straight(950, -165) -- Go back
+	w:spin(900, -92.3) -- Spin toward botguy
 	w:wait()
-	w:spin(590, -4) --correcting!
 	elevator:botguy() -- Raise the elevator to botguy position
-	w:straight(300, 20)
-	w:straight(600, 240) -- Move straight to botguy
+	w:straight(340, 20)
+	w:straight(700, 240) -- Move straight to botguy
 	w:wait() -- Make sure we're there
 
 	-- Pick up botguy
@@ -53,15 +52,15 @@ function main()
 	elevator:bmd()
 
 	-- Go back to black tape position
-	w:straight(600, -240)
-	w:spin(900, 93) -- Spin toward the cube
+	w:straight(900, -240)
+	w:spin(950, 93.5) -- Spin toward the cube
 	w:straight(300, 40)
 
 	--Naviagte cube to green tape
-	w:straight(350, 820)
+	w:straight(650, 820)
 	lowerClaw:closed() -- Close the lower claw so the cube doesn't shift
 	w:spin(900, 60)
-	w:straight(600, 500)
+	w:straight(650, 450)
 
 	-- Backup and lower
 	lowerClaw:open()
@@ -69,11 +68,11 @@ function main()
 	elevator:cube()
 	elevator:bmd()
 
-	--[[ Reset all
-	claw:open() -- Open up the claw so we don't drag cube along
+	-- Reset all
+	--[[claw:open() -- Open up the claw so we don't drag cube along
 	w:straight(300, -150) -- Back up a little, don't hit botguy/cube with it
 	elevator:neutral()
-	elevator:bmd() -- Don't close the program until elevator is at neutral]]--
+	elevator:bmd() -- Don't close the program until elevator is at neutral--]]
 
 	-- Note: The garbage collector takes care of disabling servos and turning off motors.
 	--   for more information, check the lualink docs: http://mml.stephenmac.com/static/lualink/

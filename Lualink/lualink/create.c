@@ -7,6 +7,38 @@
 #include "OpenCode/opencode/create/create_drive.h"
 #include "OpenCode/opencode/create/create_accel.h"
 
+// Indexes and accesors
+#define NPACKETS (sizeof spackets / sizeof(struct namedPacket))
+struct namedPacket {
+    char *word;
+    int pack;
+} spackets[] = {
+    "Bump", 5,
+    "Left Bump", 6,
+    "Right Bump", 7,
+    "Play Button", 17
+};
+
+int packet_to_n(const char *word, struct namedPacket tab[], int n)
+{
+    int cond;
+    int low, high, mid;
+
+    low = 0;
+    high = n - 1;
+    while (low <= high) {
+        mid = (low+high) / 2;
+        if ((cond = strcmp(word, tab[mid].word)) < 0)
+            high = mid - 1;
+        else if (cond > 0)
+            low = mid + 1;
+        else
+            return tab[mid].pack;
+    }
+    return 0;
+}
+
+
 /// Serial Interface
 // @section serial
 
@@ -205,6 +237,18 @@ static int l_wait_length(lua_State *L) {
     return 0;
 }
 
+/// The OpenCode wait_sensor function
+// @function wait_sensor
+// @tparam int event event number
+static int l_wait_sensor(lua_State *L) {
+    const char *pname = luaL_checkstring(L, 1);
+    int pnum = packet_to_n(pname, spackets, NPACKETS);
+
+    create_wait_sensor(pnum);
+
+    return 0;
+}
+
 /// The OpenCode sync function
 // @function sync
 static int l_sync(lua_State *L) {
@@ -224,6 +268,54 @@ static int l_force_wait(lua_State *L) {
     return 0;
 }
 
+/// Music
+// @section music
+
+/// Load in a song
+// @function load_song
+// @tparam int song_number song number
+// @param song table of notes in the song
+// @param song table of lengths of the notes in the song
+static int l_load_song(lua_State *L) {
+    lua_settop(L, 3);
+    luaL_checktype(L, 2, LUA_TTABLE);
+    luaL_checktype(L, 3, LUA_TTABLE);
+
+    create_write_byte(140);
+    create_write_byte(luaL_checkint(L, 1));
+
+    int len = luaL_len(L, 2);
+    create_write_byte(len);
+
+    int i;
+    for (i = 1; i <= len; i++){
+        lua_pushnumber(L, i);
+        lua_gettable(L, 2);
+        create_write_byte(luaL_checkint(L, -1));
+        lua_pop(L, 1);
+
+        lua_pushnumber(L, i);
+        lua_gettable(L, 3);
+        create_write_byte(luaL_checkint(L, -1));
+        lua_pop(L, 1);
+    }
+
+    return 0;
+}
+
+/// Play a song
+// @function play_song
+// @tparam int song_number the number of an internally stored song
+static int l_play_song(lua_State *L) {
+    int song = luaL_checkint(L, 1);
+
+    create_write_byte(141);
+    create_write_byte(song);
+
+    return 0;
+}
+
+
 // Register functions
 static const struct luaL_Reg create [] = {
     {"connect", l_connect},
@@ -242,8 +334,12 @@ static const struct luaL_Reg create [] = {
     {"accel_spin", l_accel_spin},
 
     {"wait_length", l_wait_length},
+    {"wait_sensor", l_wait_sensor},
     {"sync", l_sync},
     {"force_wait", l_force_wait},
+
+    {"load_song", l_load_song},
+    {"play_song", l_play_song},
 
     {NULL, NULL}
 };
