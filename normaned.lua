@@ -38,12 +38,12 @@ function main()
 	w:straight(950, 320)
 
 	-- Move to Botguy
-	w:straight(950, -165) -- Go back
-	w:spin(900, -92.3) -- Spin toward botguy
+	w:straight(950, -155) -- Go back
+	w:spin(900, -95) -- Spin toward botguy
 	w:wait()
 	elevator:botguy() -- Raise the elevator to botguy position
 	w:straight(340, 20)
-	w:straight(700, 240) -- Move straight to botguy
+	w:straight(400, 240) -- Move straight to botguy
 	w:wait() -- Make sure we're there
 
 	-- Pick up botguy
@@ -52,8 +52,8 @@ function main()
 	elevator:bmd()
 
 	-- Go back to black tape position
-	w:straight(900, -240)
-	w:spin(950, 93.5) -- Spin toward the cube
+	w:straight(900, -260)
+	w:spin(950, 97.5) -- Spin toward the cube
 	w:straight(300, 40)
 
 	--Naviagte cube to green tape

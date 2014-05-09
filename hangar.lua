@@ -9,12 +9,12 @@ function main()
 	create.load_song(0, {69, 71}, {16, 16})
 
 	-- Initialize the arm and claw
-	local claw = managers.Servo(0, {open = 550, closed = 1485, sorta_open = 950})
-	local arm = managers.PosMotor(0, 500, {
-		neutral = 0, down=-2100, botbar=-310, over_botbar=180,
-		thread_the_needle=-500, max=1450, topbar=1450, last=1150, 
-		second_botbar=-1950, second_over_botbar=-1800, second_hang=-210, cube=-410
-	} )
+	local claw = managers.Servo(0, {open = 550, sort_open = 1200, closed = 1725})
+	local arm = managers.PosMotor(0, 600, {
+		neutral = 0, down=-2100, botbar=-280, over_botbar=180,
+		thread_the_needle=-500, max=1650, topbar=1400, last=1150, 
+		second_botbar=-1840, second_over_botbar=-1600, second_hang=-10, cube=-500
+	})
 	claw:closed() -- Force closed to start with
 	arm:thread_the_needle() 
 
@@ -45,34 +45,29 @@ function main()
 	create.drive_segment(100, 20)
 	create.force_wait()
 	arm:botbar() arm:bmd() -- Start moving arm down to blue hangar level
-	create.drive_segment(250, 470) -- Move all the way to the left blue hangar
+	create.drive_segment(250, 455) -- Move all the way to the left blue hangar
 	msleep(500)
 	create.spin_angle(50, -1.5) -- doubly sure we are skr8 on the hanger
 	create.force_wait() -- Make sure the arm doesn't confuse the create
 	
 	-- Go for blue one
 	claw:closed() -- Close the claw
-	-- msleep(100) -- Wait till it's closed
-	arm:set_speed(500) -- Reduce the arm speed
 	arm:over_botbar() -- Begin moving up over the bottom bar
-	arm:set_speed(450) -- Make the speed faster again
 	msleep(330) -- Let the arm begin moving up
 	create.drive_segment(100, -250) -- Move back, clearing the bottom bar
 	create.force_wait() -- Ensure the create has finished it's instructions
-	arm:topbar() arm:bmd() -- Start moving the arm up
-	arm:bmd() arm:set_position(1550) -- Make it go far up to the target position
+	arm:max() -- Start moving the arm up
 	create.force_wait()
 	create.spin_angle(50, -1.8) -- Make sure it's on the bar
-	create.drive_segment(100, 380) -- Move forward, a little further to account for the lost arm length
+	create.drive_segment(100, 390) -- Move forward, a little further to account for the lost arm length
 	create.force_wait() -- Ensure the create has finished it's instructions
 	arm:last() arm:bmd() -- Hang the hangars
 	create.force_wait() -- Wait before we open the claw
-	claw:sorta_open() -- Drop the hangars
+	claw:open() -- Drop the hangars
 
 	-- Navigate to second blue
 	create.force_wait()
 	create.accel_straight(0, -225, 910) -- Go all the way back.
-	claw:open()
 	arm:max()
 	create.spin_angle(200, 90)
 	create.drive_segment(200, -295)
@@ -106,12 +101,11 @@ function main()
 	create.force_wait()
 	arm:neutral() -- Raise hangars to correct location
 	create.drive_segment(100, -275) -- Move back so now hook is over bar
-	create.spin_angle(200, 2.5) -- Spin a tad
 	create.force_wait()
 	claw:open() -- Release the hanger
 
 	-- Go for the orange cube
-	create.spin_angle(100, 72) -- Spin to the left of the board
+	create.spin_angle(100, 74.5) -- Spin to the left of the board
 	align_to_cube()
 	arm:clear_position()
 	create.force_wait() -- Make sure all create actions are finished

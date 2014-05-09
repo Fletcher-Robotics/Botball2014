@@ -61,6 +61,18 @@ static int l_disconnect(lua_State *L) {
     return 0;
 }
 
+/// The write_byte link function
+// @tparam int byte
+// @function write_byte
+// @see k:create_write_byte
+static int l_write_byte(lua_State *L) {
+    int b = luaL_checkint(L, 1);
+
+    create_write_byte((char) b);
+
+    return 0;
+}
+
 /// Movement
 // @section move
 
@@ -320,6 +332,7 @@ static int l_play_song(lua_State *L) {
 static const struct luaL_Reg create [] = {
     {"connect", l_connect},
     {"disconnect", l_disconnect},
+    {"write_byte", l_write_byte},
 
     {"stop", l_stop},
     {"drive", l_drive},
