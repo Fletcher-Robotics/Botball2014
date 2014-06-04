@@ -52,19 +52,19 @@ function align_to_cube()
 	end
 end
 
-return function(arm, claw)
-	create.spin_angle(100, 85) -- Spin to the left of the board
+return function()
+	create.spin_angle(100, 83) -- Spin to the left of the board
 	create.force_wait() -- Make sure all create actions are finished
 	align_to_cube()
-	arm:cube() -- Move the arm down to the cube position
-	create.drive_segment(180, 190) -- Drive to the cube
+	arm:last() -- Move the arm down to the cube position
+	create.drive_segment(180, 260) -- Drive to the cube
 	create.force_wait() -- Make sure everything is finished before we close the claw
-	arm:mrp(-100) arm:bmd() -- Move down a bit
+	arm:cube() arm:bmd() -- Move down a bit
 	claw:closed() -- Close the claw over the cube
 	msleep(300) -- Make sure the claw is closed before 
 	create.drive_arc(280, -280, 45) -- Move back to line up
 	create.drive_arc(240, 280, -34)
-	create.drive_segment(200, -280) -- Line up
+	create.drive_segment(200, -300) -- Line up
 	create.drive_segment(60, 30) -- Forward a tad
 	create.spin_angle(180, 80) -- Twist
 	create.force_wait()
@@ -78,6 +78,5 @@ return function(arm, claw)
 	arm:second_over_botbar() arm:bmd() -- Put the arm down
 	claw:open()
 	msleep(500)
-	arm:neutral()
 	create.drive_segment(200, -200)
 end

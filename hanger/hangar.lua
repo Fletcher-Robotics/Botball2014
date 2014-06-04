@@ -7,35 +7,41 @@ local cube = require("cube")
 function main()
 	-- Add debug song
 	create.load_song(0, {69, 71}, {16, 16})
+	create.load_song(1, {71}, {8})
 
 	-- Initialize the arm and claw
-	local claw = managers.Servo(0, {open = 750, half_open = 1400, closed = 1975})
-	local arm = managers.PosMotor(0, 600, {
-		neutral = 0, down=-2100, botbar=-370, over_botbar=180,
-		thread_the_needle=-500, max=1750, topbar=1300, last=1050,
-		second_botbar=-1750, second_over_botbar=-1600, second_hang=-280, cube=-400
+	claw = managers.Servo(0, {open = 750, half_open = 1400, closed = 2000})
+	arm = managers.PosMotor(0, 600, {
+		botbar=585, second_botbar=670,
+		over_botbar=1300, second_over_botbar=875,
+		max=2800, topbar=2300, last=2100,
+		thread_the_needle=2150, ground_skim=200,
+		cube=1950
 	})
+	button = managers.DigitalSensor(15)
 
-	setup_procedure(claw, arm)
-
-	hanger(arm, claw)
-	cube(arm, claw)
+	setup_procedure()
+	-- hanger()
+	-- Cube testing:
+	arm:max() claw:open()
+	cube()
 
 	-- Cleanup
 	create.force_wait()
 end
 
-function reset_position(arm, button)
+function reset_position()
 	arm:power(-25)
 	button:block_until(function(v) return v end)
-	--arm:clear_position()
+	create.play_song(1)
+	arm:clear_position()
 	arm:freeze()
 end
 
-function setup_procedure(claw, arm)
+function setup_procedure()
 	claw:closed() -- Force closed to start with
 	-- arm:thread_the_needle() -- msleep afterwards during competition
-	-- reset_position()
+	reset_position()
 end
 
 
