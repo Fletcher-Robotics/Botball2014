@@ -76,14 +76,6 @@ end
 --- Clear position
 -- @see motor.clear_motor_position_counter
 function M.PosMotor:clear_position()
-    local spd = self.s
-    self:set_speed(800)
-    if math.random(0, 1) == 0 then
-        self:mrp(math.random(90, 150))
-    else
-        self:mrp(math.random(-150, -90))
-    end
-    self:set_speed(spd)
     motor.clear_motor_position_counter(self.p)
 end
 
