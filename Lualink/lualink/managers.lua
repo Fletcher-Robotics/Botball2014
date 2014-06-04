@@ -7,6 +7,7 @@ local Object = require "lualink.Object"
 local sensor = require "lualink.sensor"
 local servo = require "lualink.servo"
 local motor = require "lualink.motor"
+local time = require "lualink.time"
 
 --- Sensor manager
 -- @type Sensor
@@ -30,9 +31,15 @@ end
 -- @tparam func f Function which, given the value of the servo, returns
 -- whether desired condition is satisfied
 function M.Sensor:block_until(f)
-    repeat until f(self:get_value()) ~= false
+    repeat until f(self:get_value())
 end
 
+--- Sensor manager for a digital sensor
+-- @type DigitalSensor
+M.DigitalSensor = M.Sensor:subclass("DigitalSensor")
+function M.DigitalSensor:get_value()
+    return sensor.digital(self.p)
+end
 
 --- Manages a positioned motor. A positioned motor acts like a servo,
 -- but it can go on continuously. Ideal for something connected to a rope
@@ -69,6 +76,14 @@ end
 --- Clear position
 -- @see motor.clear_motor_position_counter
 function M.PosMotor:clear_position()
+    local spd = self.s
+    self:set_speed(800)
+    if math.random(0, 1) == 0 then
+        self:mrp(math.random(90, 150))
+    else
+        self:mrp(math.random(-150, -90))
+    end
+    self:set_speed(spd)
     motor.clear_motor_position_counter(self.p)
 end
 
@@ -102,6 +117,13 @@ end
 -- @see motor.mrp
 function M.PosMotor:mrp(pos)
     motor.mrp(self.p, self.s, pos)
+end
+
+--- Set power for direct control
+-- @tparam int p power
+-- @see motor.motor
+function M.PosMotor:power(p)
+    motor.motor(self.p, p)
 end
 
 function M.PosMotor.__meta__:__gc()

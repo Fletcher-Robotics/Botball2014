@@ -16,6 +16,9 @@ rsync -P --delete -rl -e ssh --exclude-from=.exclude --delete-excluded \
   $USER@$IP:/home/$USER/$DIR/. .
 
 if [ $# -eq 2 ]; then
-	time lua $2
+	CIDR=$(pwd)
+	cd $(dirname $2)
+	time lua $(basename $2)
+	cd $CDIR
 	lua -e "(require 'lualink.motor').ao()"
 fi
