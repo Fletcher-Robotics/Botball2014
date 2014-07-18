@@ -45,10 +45,10 @@ static int l_spin(lua_State *L) {
     return 0;
 }
 
-static int l_wait(lua_State *L) {
+/*static int l_wait(lua_State *L) {
     cbc_wait();
     return 0;
-}
+}*/
 
 static const struct luaL_Reg wheel_c [] = {
     {"build_left_wheel", l_build_left_wheel},
@@ -56,7 +56,7 @@ static const struct luaL_Reg wheel_c [] = {
     {"straight", l_straight},
     {"arc", l_arc},
     {"spin", l_spin},
-    {"wait", l_wait},
+    //{"wait", l_wait},
     {NULL, NULL}
 };
 

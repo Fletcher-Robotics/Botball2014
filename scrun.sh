@@ -8,7 +8,7 @@ if [ $1 = "lubuntu" ]; then
 	DIR=Development/Botball2014
 else
 	USER=stephen
-	IP=192.168.1.7
+	IP=192.168.1.3
 	DIR=Development/Botball2014
 fi
 

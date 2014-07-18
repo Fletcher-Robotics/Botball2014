@@ -57,8 +57,8 @@ function WheelController:arc (speed, radius, angle)
 end
 
 --- Wait until movements are finished
-function WheelController:wait ()
-    wheel.wait()
-end
+--function WheelController:wait ()
+--    wheel.wait()
+--end
 
 return WheelController

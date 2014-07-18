@@ -40,11 +40,11 @@ function main()
 	-- Move to Botguy
 	w:straight(950, -155) -- Go back
 	w:spin(900, -95) -- Spin toward botguy
-	w:wait()
+	--w:wait()
 	elevator:botguy() -- Raise the elevator to botguy position
 	w:straight(340, 20)
 	w:straight(400, 240) -- Move straight to botguy
-	w:wait() -- Make sure we're there
+	--w:wait() -- Make sure we're there
 
 	-- Pick up botguy
 	claw:closed()

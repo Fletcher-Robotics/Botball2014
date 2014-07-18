@@ -21,9 +21,9 @@ function main()
 	button = managers.DigitalSensor(15)
 
 	setup_procedure()
-	-- hanger()
+	hanger()
 	-- Cube testing:
-	arm:max() claw:open()
+	--arm:max() claw:open()
 	cube()
 
 	-- Cleanup
