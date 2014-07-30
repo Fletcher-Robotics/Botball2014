@@ -47,6 +47,7 @@ end
 -- @tparam number angle angle
 function WheelController:spin (speed, angle)
     wheel.spin(speed, angle)
+    motor.ao()
 end
 
 --- Move in an arc
@@ -54,7 +55,8 @@ end
 -- @tparam number radius radius
 -- @tparam number angle angle covered by arc
 function WheelController:arc (speed, radius, angle)
-    wheel.arc(speed, radius, angle * 1.5)
+    wheel.arc(speed, radius, angle * 1.6)
+    motor.ao()
 end
 
 --- Wait until movements are finished

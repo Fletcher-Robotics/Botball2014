@@ -19,7 +19,7 @@ function main()
     --   - top    : highest position possible, for carrying botbuy above the cube
     --   Note: PosMotor contructor automatically resets the position counter, so elevator:neutral() at this point
     --     would do nothing.
-    local elevator = managers.PosMotor(2, 600, {neutral = 0, push = 400, botguy = 575, cube = 1700, top = 2100})
+    local elevator = managers.PosMotor(2, 600, {neutral = 0, push = 400, botguy = 595, cube = 1700, top = 2100})
     -- Claws: On ports 2 and 3, both are auto-enabled by Servo constructor
     local claw = managers.Servo(2, {open = 1900, closed = 850})
     local lowerClaw = managers.Servo(3, {open = 1100, closed = 400})
@@ -29,22 +29,20 @@ function main()
     claw:open()
 
     -- Move to cube
-    w:straight(250, 40)
-    w:straight(1400, 190)
-    w:arc(950, 150, 90)
+    --w:straight(200, 40)
+    w:straight(1400, 200)
+    w:arc(950, 218, 90)
 
     -- Push Cube
-    w:straight(525, 20)
-    w:straight(1400, 320)
+    w:straight(475, 20)
+    w:straight(1400, 260)
 
     -- Move to Botguy
-    w:straight(1400, -155) -- Go back
-    w:spin(1300, -95) -- Spin toward botguy
-    --w:wait()
-    elevator:botguy() -- Raise the elevator to botguy position
+    w:straight(1400, -253) -- Go back
+    w:spin(1300, -92) -- Spin toward botguy
+    elevator:botguy() elevator:bmd() -- Raise the elevator to botguy position
     w:straight(720, 20)
-    w:straight(600, 240) -- Move straight to botguy
-    --w:wait() -- Make sure we're there
+    w:straight(600, 163) -- Move straight to botguy
 
     -- Pick up botguy
     claw:closed()
@@ -52,19 +50,19 @@ function main()
     elevator:bmd()
 
     -- Go back to black tape position
-    w:straight(1300, -260)
-    w:spin(1400, 97.5) -- Spin toward the cube
+    w:straight(1300, -253)
+    w:spin(1400, 93) -- Spin toward the cube
     w:straight(450, 40)
 
     --Naviagte cube to green tape
-    w:straight(975, 820)
+    w:straight(975, 370)
     lowerClaw:closed() -- Close the lower claw so the cube doesn't shift
-    w:spin(1300, 60)
-    w:straight(975, 450)
+    w:spin(1300, 70)
+    w:straight(975, 500)
 
     -- Backup and lower
     lowerClaw:open()
-    w:straight(450, -75)
+    w:straight(450, -85)
     elevator:cube()
     elevator:bmd()
 
