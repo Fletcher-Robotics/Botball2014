@@ -29,9 +29,9 @@ function main()
     claw:open()
 
     -- Move to cube
-    w:straight(450, 40)
-    w:straight(1400, 345)
-    w:arc(950, 200, 86.5)
+    w:straight(250, 40)
+    w:straight(1400, 190)
+    w:arc(950, 150, 90)
 
     -- Push Cube
     w:straight(525, 20)

@@ -39,6 +39,7 @@ function WheelController:straight (speed, dist)
     self:both(motor.motor, speed / 25)
     time.msleep(40)
     wheel.straight(speed, dist)
+    motor.ao()
 end
 
 --- Spin
