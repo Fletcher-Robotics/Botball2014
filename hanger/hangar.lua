@@ -10,7 +10,7 @@ function main()
 	create.load_song(1, {71}, {8})
 
 	-- Initialize the arm and claw
-	claw = managers.Servo(0, {open = 750, half_open = 1400, closed = 2000})
+	claw = managers.Servo(0, {open = 500, half_open = 1075, closed = 1600})
 	arm = managers.PosMotor(0, 600, {
 		botbar=585, second_botbar=670,
 		over_botbar=1300, second_over_botbar=875,
