@@ -7,7 +7,7 @@ function green_hanger()
     create.drive_arc(255, 520, 54) -- Move toward middle, face left
     create.drive_segment(170, 200) -- Now at middle
     create.spin_angle(160, -79) -- Spin toward hangars
-    create.drive_segment(150, 205) -- Move to the hangars
+    create.drive_segment(150, 190) -- Move to the hangars
     create.force_wait() -- Make sure everything is done
 
     -- Hang greens
