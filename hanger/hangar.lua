@@ -11,12 +11,12 @@ function main()
 
     -- Initialize the arm and claw
     claw = managers.Servo(0, {open = 500, half_open = 1075, closed = 1600})
-    arm = managers.PosMotor(0, 600, {
+    arm = managers.PosMotor(0, 700, {
         botbar=585, second_botbar=670,
         over_botbar=1300, second_over_botbar=875,
         max=2800, topbar=2300, last=2100,
         thread_the_needle=2150, ground_skim=200,
-        cube=1950
+        cube=2100, align_cube=2550
     })
     button = managers.DigitalSensor(15)
 

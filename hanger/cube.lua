@@ -53,11 +53,12 @@ function align_to_cube()
 end
 
 return function()
-    create.spin_angle(100, 83) -- Spin to the left of the board
+    create.spin_angle(100, 80) -- Spin to the left of the board
+    arm:align_cube() arm:bmd() -- Lower the bar (GCER height)
     create.force_wait() -- Make sure all create actions are finished
     align_to_cube()
     arm:last() -- Move the arm down to the cube position
-    create.drive_segment(180, 220) -- Drive to the cube
+    create.drive_segment(180, 213) -- Drive to the cube
     create.force_wait() -- Make sure everything is finished before we close the claw
     arm:bmd() arm:cube() arm:bmd() -- Move down a bit
     claw:closed() -- Close the claw over the cube

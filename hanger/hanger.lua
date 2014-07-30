@@ -5,9 +5,9 @@ function green_hanger()
     -- Navigate to hanger bar
     create.drive_arc(255, -400, -55) -- Move out of starting box
     create.drive_arc(255, 520, 54) -- Move toward middle, face left
-    create.drive_segment(170, 240) -- Now at middle
+    create.drive_segment(170, 200) -- Now at middle
     create.spin_angle(160, -79) -- Spin toward hangars
-    create.drive_segment(150, 170) -- Move to the hangars
+    create.drive_segment(150, 205) -- Move to the hangars
     create.force_wait() -- Make sure everything is done
 
     -- Hang greens
@@ -31,7 +31,7 @@ function first_blue_hanger()
     create.drive_segment(100, 20)
     create.force_wait()
     reset_position() -- Make sure the arm knows where it is
-    create.drive_segment(260, 445) -- Move all the way to the left blue hangar
+    create.drive_segment(260, 435) -- Move all the way to the left blue hangar
     arm:botbar() arm:bmd() -- Start moving arm down to blue hangar level
     create.force_wait() -- Make sure the arm doesn't confuse the create
     
@@ -58,10 +58,10 @@ function second_blue_hanger()
     claw:open()
     create.spin_angle(200, 90)
     create.drive_segment(200, -200)
-    create.drive_segment(200, 40)
+    create.drive_segment(200, 35)
     create.spin_angle(200, -90)
     create.drive_segment(150, -60)
-    create.drive_segment(250, 205) -- Go straight parallel to pipe
+    create.drive_segment(250, 208) -- Go straight parallel to pipe
     create.drive_arc(240, -180, -45) -- Sepentine to right hangar
     create.drive_arc(240, 180, 34)
     create.force_wait()
@@ -80,7 +80,7 @@ function second_blue_hanger()
     create.force_wait()
     arm:thread_the_needle() arm:bmd() -- Put the arm at the position to go between the bars
     create.force_wait()
-    create.drive_segment(200, 310) -- Put hangar between white bars
+    create.drive_segment(200, 317) -- Put hangar between white bars
     msleep(1000)
     create.force_wait()
     arm:max() -- Raise hangars to correct location
