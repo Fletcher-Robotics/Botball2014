@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <lua.h>
+#include <libgen.h>
 #include <lauxlib.h>
 #include <lualib.h>
 
@@ -66,8 +67,28 @@ void wait_for_light_2(int light_port_)
     set_c_button_text("C");
 }
 
+void set_lpath(char *fpath) {
+    char *dir = dirname(fpath);
+
+    /* Create string to put package path */
+    char *lpath = (char *) malloc(80);
+    lpath[0] = '\0';
+
+    /* Fill package path */
+    strcat(lpath, dir);
+    strcat(lpath, "/?.lua;;");
+
+    /* Set the results */
+    printf("Path: %s\n", lpath);
+    setenv("LUA_PATH", lpath, 1);
+
+    /* Free & Return 0 */
+    free(lpath);
+}
+
 int main(int argc, char *argv[]) {
     printf("Args: %s %s\n", argv[0], argv[1]);
+    set_lpath(strdup(argv[1]));
     int error;
 
     printf("Setting up the Lua state\n");
