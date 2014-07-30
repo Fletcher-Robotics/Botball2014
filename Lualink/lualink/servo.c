@@ -18,6 +18,19 @@ static int l_set_servo_position(lua_State *L) {
     return 0;
 }
 
+/// The get_servo_position link function
+// @tparam int srv port
+// @treturn int servo position
+// @function get_servo_position
+// @see k:get_servo_position
+static int l_get_servo_position(lua_State *L) {
+    int srv = luaL_checkint(L, 1);
+
+    lua_pushinteger(L, get_servo_position(srv));
+
+    return 1;
+}
+
 /// The enable_servo link function
 // @tparam int p port
 // @function enable_servo
@@ -44,6 +57,7 @@ static int l_disable_servo(lua_State *L) {
 
 static const struct luaL_Reg servo [] = {
     {"set_servo_position", l_set_servo_position},
+    {"get_servo_position", l_get_servo_position},
     {"enable_servo", l_enable_servo},
     {"disable_servo", l_disable_servo},
     {NULL, NULL}

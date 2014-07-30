@@ -35,3 +35,36 @@ def live():
     """ Run lua interactively on the remote, where the lualink library can be found in the lualink table """
     run('lua -l lualink')
 
+def install_lua():
+    """ Install the lua interpreter on the Link """
+    from os.path import basename, splitext, join
+    # Set paths
+    lua_url = "http://www.lua.org/ftp/lua-5.2.3.tar.gz"
+    lua_archive = basename(lua_url)
+    lua_dir = splitext(splitext(lua_archive)[0])[0]
+    # Perform the operations
+    with cd(basedir):
+        with settings(warn_only=True):
+            run('rm ' + lua_archive)
+            run('rm -rf ' + lua_dir)
+        run('wget ' + lua_url)
+        run('tar xzf ' + lua_archive)
+        with cd(lua_dir):
+            run('make linux -j2')
+            run('make install')
+
+def install_library():
+    """ Install the latest lualink library from this computer """
+    from os.path import join
+    run_rsync()
+    with cd(join(basedir, "Lualink/lualink")):
+        run('make uninstall')
+        run('make install')
+
+def stop():
+    """ Stop all motors and servos on Link """
+    from os.path import join
+    put('stop.lua', join(basedir, 'stop.lua'))
+    run('lua stop.lua')
+    run('rm stop.lua')
+

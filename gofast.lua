@@ -19,11 +19,10 @@ function main()
         {lp = 0, rp = 1, lm = 1, rm = 1,
          ld = 200, rd = 200, lr = 80, rr = 80})]]--
         --103cm/s
-    local ramp = managers.Servo(1, {down = 790})
-    ramp:down()
-    straight_dist(100, 63)
-    quick_dist(5, 100, 150)
-    --quick_dist(-100, 100, 70)
+    --local ramp = managers.Servo(1, {up = 1800, mid = 925, down = 650})
+    straight_dist(100, 83)
+    quick_dist(50, 100, 150)
+    straight_dist(100, 30)
 end
 
 main()
