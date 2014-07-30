@@ -20,7 +20,7 @@ end
 function drive_by()
     create.drive_straight(180)
     block_until_blob_in_range(0, 0, 1, 77, 83)
-    create.drive_segment(180, 210)
+    create.drive_segment(180, 235)
     create.force_wait()
 end
 
@@ -59,7 +59,7 @@ return function()
     arm:last() -- Move the arm down to the cube position
     create.drive_segment(180, 220) -- Drive to the cube
     create.force_wait() -- Make sure everything is finished before we close the claw
-    arm:cube() arm:bmd() -- Move down a bit
+    arm:bmd() arm:cube() arm:bmd() -- Move down a bit
     claw:closed() -- Close the claw over the cube
     msleep(300) -- Make sure the claw is closed before 
     create.drive_arc(280, -280, 45) -- Move back to line up

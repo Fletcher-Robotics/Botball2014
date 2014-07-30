@@ -5,7 +5,7 @@ function green_hanger()
     -- Navigate to hanger bar
     create.drive_arc(255, -400, -55) -- Move out of starting box
     create.drive_arc(255, 520, 54) -- Move toward middle, face left
-    create.drive_segment(170, 220) -- Now at middle
+    create.drive_segment(170, 240) -- Now at middle
     create.spin_angle(160, -79) -- Spin toward hangars
     create.drive_segment(150, 170) -- Move to the hangars
     create.force_wait() -- Make sure everything is done
@@ -58,7 +58,7 @@ function second_blue_hanger()
     claw:open()
     create.spin_angle(200, 90)
     create.drive_segment(200, -200)
-    create.drive_segment(200, 31)
+    create.drive_segment(200, 40)
     create.spin_angle(200, -90)
     create.drive_segment(150, -60)
     create.drive_segment(250, 205) -- Go straight parallel to pipe
