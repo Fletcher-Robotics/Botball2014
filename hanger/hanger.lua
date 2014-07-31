@@ -86,7 +86,8 @@ function second_blue_hanger()
     arm:max() -- Raise hangars to correct location
     create.drive_segment(100, -275) -- Move back so now hook is over bar
     create.force_wait()
-    claw:open() -- Release the hanger
+    claw:more_open() -- Release the hanger
+
 end
 
 return function()
