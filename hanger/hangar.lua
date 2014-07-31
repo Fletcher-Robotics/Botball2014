@@ -4,10 +4,13 @@ local managers = require("lualink.managers")
 local hanger = require("hanger")
 local cube = require("cube")
 
+local msleep = require("lualink.time").msleep
+
 function main()
     -- Add debug song
     create.load_song(0, {69, 71}, {16, 16})
     create.load_song(1, {71}, {8})
+    -- create.load_song()
 
     -- Initialize the arm and claw
     claw = managers.Servo(0, {open = 800, more_open = 400, half_open = 1275, closed = 1700})
@@ -20,7 +23,7 @@ function main()
     })
     button = managers.DigitalSensor(15)
 
-    setup_procedure()
+    gcer_setup_procedure()
     hanger()
     -- Cube testing:
     --arm:max() claw:open()
@@ -38,9 +41,16 @@ function reset_position()
     arm:freeze()
 end
 
-function setup_procedure()
+function gcer_setup_procedure()
     claw:closed() -- Force closed to start with
-    -- arm:thread_the_needle() -- msleep afterwards during competition
+    msleep(5000) -- Wait for small bot to get out of the way
+    reset_position() -- Make botttom 0
+    arm:thread_the_needle() -- msleep afterwards during competition
+    msleep(12000) -- Wait for small bot to arrive to the middle of the board
+end
+
+function setup_procedure()
+    claw:closed()
     reset_position()
 end
 

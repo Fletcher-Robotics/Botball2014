@@ -63,7 +63,7 @@ function second_blue_hanger()
     create.drive_segment(150, -60)
     create.drive_segment(250, 208) -- Go straight parallel to pipe
     create.drive_arc(240, -180, -45) -- Sepentine to right hangar
-    create.drive_arc(240, 180, 34)
+    create.drive_arc(240, 180, 35) -- 34)
     create.force_wait()
     reset_position()
     arm:botbar() arm:bmd() -- Move down to the bottom bar, NEEDS TO BE REPLACED

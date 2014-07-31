@@ -31,14 +31,14 @@ function main()
     -- Move to cube
     --w:straight(200, 40)
     w:straight(1400, 200)
-    w:arc(950, 218, 90)
+    w:arc(950, 218, 97.5) -- Really shouldn't have to use something other than 90 for the angle
 
     -- Push Cube
     w:straight(475, 20)
     w:straight(1400, 260)
 
     -- Move to Botguy
-    w:straight(1400, -253) -- Go back
+    w:straight(1400, -240) -- Go back
     w:spin(1300, -92) -- Spin toward botguy
     elevator:botguy() elevator:bmd() -- Raise the elevator to botguy position
     w:straight(720, 20)

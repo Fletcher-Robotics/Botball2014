@@ -31,7 +31,7 @@ function turn_til_cube()
     msleep(1000)
     sensor.camera_update()
     create.spin(-45)
-    block_until_blob_in_range(0, 0, 1, 75, 83)
+    block_until_blob_in_range(0, 0, 1, 90, 98) -- Orig: 75, 83
     create.stop()
 end
 
@@ -57,7 +57,7 @@ return function()
     arm:align_cube() arm:bmd() -- Lower the bar (GCER height)
     create.force_wait() -- Make sure all create actions are finished
     align_to_cube()
-    create.drive_segment(180, 213) -- Drive to the cube
+    create.drive_segment(180, 190) -- Drive to the cube
     create.force_wait() -- Make sure everything is finished before we close the claw
     arm:cube() arm:bmd() -- Move down a bit
     claw:closed() -- Close the claw over the cube
