@@ -29,20 +29,21 @@ function main()
     claw:open()
 
     -- Move to cube
-    --w:straight(200, 40)
     w:straight(1400, 200)
-    w:arc(950, 218, 97.5) -- Really shouldn't have to use something other than 90 for the angle
+    w:arc(950, 200, 90) -- Really shouldn't have to use something other than 90 for the angle
 
     -- Push Cube
     w:straight(475, 20)
-    w:straight(1400, 260)
+    w:straight(1400, 300)
 
     -- Move to Botguy
     w:straight(1400, -240) -- Go back
     w:spin(1300, -92) -- Spin toward botguy
+    w:halt()
     elevator:botguy() elevator:bmd() -- Raise the elevator to botguy position
     w:straight(720, 20)
-    w:straight(600, 163) -- Move straight to botguy
+    w:straight(600, 146) -- Move straight to botguy
+    w:halt()
 
     -- Pick up botguy
     claw:closed()
@@ -56,13 +57,16 @@ function main()
 
     --Naviagte cube to green tape
     w:straight(975, 370)
+    w:halt()
     lowerClaw:closed() -- Close the lower claw so the cube doesn't shift
     w:spin(1300, 70)
     w:straight(975, 500)
+    w:halt()
 
     -- Backup and lower
     lowerClaw:open()
     w:straight(450, -85)
+    w:halt()
     elevator:cube()
     elevator:bmd()
 

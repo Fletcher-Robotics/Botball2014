@@ -39,7 +39,6 @@ function WheelController:straight (speed, dist)
     self:both(motor.motor, speed / 25)
     time.msleep(40)
     wheel.straight(speed, dist)
-    motor.ao()
 end
 
 --- Spin
@@ -47,7 +46,6 @@ end
 -- @tparam number angle angle
 function WheelController:spin (speed, angle)
     wheel.spin(speed, angle)
-    motor.ao()
 end
 
 --- Move in an arc
@@ -56,12 +54,11 @@ end
 -- @tparam number angle angle covered by arc
 function WheelController:arc (speed, radius, angle)
     wheel.arc(speed, radius, angle * 1.6)
-    motor.ao()
 end
 
---- Wait until movements are finished
---function WheelController:wait ()
---    wheel.wait()
---end
+--- Stop all wheel movement
+function WheelController:halt ()
+    wheel.halt()
+end
 
 return WheelController

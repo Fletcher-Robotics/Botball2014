@@ -7,7 +7,7 @@ function green_hanger()
     create.drive_arc(255, 520, 54) -- Move toward middle, face left
     create.drive_segment(170, 200) -- Now at middle
     create.spin_angle(160, -79) -- Spin toward hangars
-    create.drive_segment(150, 190) -- Move to the hangars
+    create.drive_segment(150, 205) -- Move to the hangars
     create.force_wait() -- Make sure everything is done
 
     -- Hang greens
@@ -27,11 +27,11 @@ function first_blue_hanger()
     create.drive_segment(250, -70) -- Back up until we hit the pipe to line up
     create.drive_segment(150, 170) -- Go forward, so that we are in place to get left hangar
     create.spin_angle(170, -90) -- Spin toward the hangars
-    create.drive_segment(200, -100) -- Line up again, on the back pipe
+    create.drive_segment(200, -120) -- Line up again, on the back pipe
     create.drive_segment(100, 20)
     create.force_wait()
     reset_position() -- Make sure the arm knows where it is
-    create.drive_segment(260, 435) -- Move all the way to the left blue hangar
+    create.drive_segment(260, 427) -- Move all the way to the left blue hangar
     arm:botbar() arm:bmd() -- Start moving arm down to blue hangar level
     create.force_wait() -- Make sure the arm doesn't confuse the create
     
@@ -55,7 +55,7 @@ function second_blue_hanger()
     -- Navigate to second blue
     create.force_wait()
     create.accel_straight(0, -225, 910) -- Go all the way back.
-    claw:open()
+    claw:idiotic_redundant_open()
     create.spin_angle(200, 90)
     create.drive_segment(200, -200)
     create.drive_segment(200, 35)
@@ -63,7 +63,7 @@ function second_blue_hanger()
     create.drive_segment(150, -60)
     create.drive_segment(250, 208) -- Go straight parallel to pipe
     create.drive_arc(240, -180, -45) -- Sepentine to right hangar
-    create.drive_arc(240, 180, 35) -- 34)
+    create.drive_arc(240, 180, 34.5) -- 34)
     create.force_wait()
     reset_position()
     arm:botbar() arm:bmd() -- Move down to the bottom bar, NEEDS TO BE REPLACED
@@ -84,7 +84,7 @@ function second_blue_hanger()
     msleep(1000)
     create.force_wait()
     arm:max() -- Raise hangars to correct location
-    create.drive_segment(100, -275) -- Move back so now hook is over bar
+    create.drive_segment(100, -255) -- Move back so now hook is over bar
     create.force_wait()
     claw:more_open() -- Release the hanger
 
