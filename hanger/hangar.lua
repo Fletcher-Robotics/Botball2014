@@ -15,15 +15,15 @@ function main()
     -- Initialize the arm and claw
     claw = managers.Servo(0, {open = 800, more_open = 400, half_open = 1275, idiotic_redundant_open = 1025, closed = 1850})
     arm = managers.PosMotor(0, 700, {
-        botbar=585, second_botbar=690,
-        over_botbar=1300, second_over_botbar=875,
+        botbar=685, second_botbar=790,
+        over_botbar=1400, second_over_botbar=975,
         max=2800, topbar=2300, last=2100,
-        thread_the_needle=2150, ground_skim=200,
+        thread_the_needle=2150, ground_skim=290,
         cube=2100, align_cube=2550
     })
     button = managers.DigitalSensor(15)
 
-    gcer_setup_procedure()
+    setup_procedure()
     hanger()
     -- Cube testing:
     --arm:max() claw:open()

@@ -27,6 +27,7 @@ end
 function turn_til_cube()
     sensor.camera_update()
     create.spin_angle(280, -93)
+    arm:topbar()
     create.force_wait()
     msleep(1000)
     sensor.camera_update()
@@ -53,7 +54,7 @@ function align_to_cube()
 end
 
 return function()
-    create.spin_angle(100, 70) -- Spin to the left of the board
+    create.spin_angle(100, 75) -- Spin to the left of the board
     arm:align_cube() arm:bmd() -- Lower the bar (GCER height)
     create.force_wait() -- Make sure all create actions are finished
     align_to_cube()

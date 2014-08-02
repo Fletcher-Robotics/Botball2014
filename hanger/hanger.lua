@@ -6,7 +6,7 @@ function green_hanger()
     create.drive_arc(255, -400, -55) -- Move out of starting box
     create.drive_arc(255, 520, 54) -- Move toward middle, face left
     create.drive_segment(170, 200) -- Now at middle
-    create.spin_angle(160, -79) -- Spin toward hangars
+    create.spin_angle(160, -81) -- Spin toward hangars
     create.drive_segment(150, 205) -- Move to the hangars
     create.force_wait() -- Make sure everything is done
 
@@ -44,9 +44,9 @@ function first_blue_hanger()
     arm:max() -- Start moving the arm up
     create.force_wait()
     create.spin_angle(50, -1.8) -- Make sure it's on the bar
-    create.drive_segment(100, 386) -- Move forward, a little further to account for the lost arm length
+    create.drive_segment(100, 390) -- Move forward, a little further to account for the lost arm length
     create.force_wait() -- Ensure the create has finished it's instructions
-    arm:last() arm:bmd() -- Hang the hangars
+    arm:topbar() arm:bmd() -- Hang the hangars
     create.force_wait() -- Wait before we open the claw
     claw:half_open() -- Drop the hangars
 end
@@ -63,7 +63,7 @@ function second_blue_hanger()
     create.drive_segment(150, -60)
     create.drive_segment(250, 208) -- Go straight parallel to pipe
     create.drive_arc(240, -180, -45) -- Sepentine to right hangar
-    create.drive_arc(240, 180, 34.5) -- 34)
+    create.drive_arc(240, 180, 35) -- 34)
     create.force_wait()
     reset_position()
     arm:botbar() arm:bmd() -- Move down to the bottom bar, NEEDS TO BE REPLACED
@@ -80,10 +80,12 @@ function second_blue_hanger()
     create.force_wait()
     arm:thread_the_needle() arm:bmd() -- Put the arm at the position to go between the bars
     create.force_wait()
+    create.spin_angle(200, 2)
     create.drive_segment(200, 317) -- Put hangar between white bars
     msleep(1000)
     create.force_wait()
     arm:max() -- Raise hangars to correct location
+    msleep(500)
     create.drive_segment(100, -255) -- Move back so now hook is over bar
     create.force_wait()
     claw:more_open() -- Release the hanger
