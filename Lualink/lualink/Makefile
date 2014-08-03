@@ -7,7 +7,7 @@ LUA_DIR:=/usr/local
 LUA_LIBDIR:=$(LUA_DIR)/lib/lua/5.2
 LUA_SHAREDIR:=$(LUA_DIR)/share/lua/5.2
 
-TARGETS:= create.so wheel_c.so sensor.so motor.so servo.so time.so
+TARGETS:= create.so wheel_c.so sensor.so motor.so servo.so time.so general.so
 
 all: $(TARGETS)
 

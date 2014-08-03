@@ -103,9 +103,9 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    /* Setup light, etc
+    // Setup light, etc
     printf("Lights!\n");
-    wait_for_light_2(atoi(argv[2])); */
+    wait_for_light_2(atoi(argv[2]));
 
     // Setup shutdown
     shut_down_in(119);

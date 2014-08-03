@@ -13,7 +13,8 @@ function main()
     -- create.load_song()
 
     -- Initialize the arm and claw
-    claw = managers.Servo(0, {open = 800, more_open = 400, half_open = 1275, idiotic_redundant_open = 1025, closed = 1850})
+    -- claw = managers.Servo(0, {open = 800, more_open = 400, half_open = 1275, idiotic_redundant_open = 1025, closed = 1850})
+    claw = managers.PosMotor(1, 1500, {open = 900, half_open = 400, closed = 0})
     arm = managers.PosMotor(0, 700, {
         botbar=685, second_botbar=790,
         over_botbar=1400, second_over_botbar=975,
@@ -26,8 +27,8 @@ function main()
     setup_procedure()
     hanger()
     -- Cube testing:
-    --arm:max() claw:open()
-    cube()
+    -- arm:max() claw:open()
+    -- cube()
 
     -- Cleanup
     create.force_wait()
@@ -41,16 +42,8 @@ function reset_position()
     arm:freeze()
 end
 
-function gcer_setup_procedure()
-    claw:closed() -- Force closed to start with
-    msleep(5000) -- Wait for small bot to get out of the way
-    reset_position() -- Make botttom 0
-    arm:thread_the_needle() -- msleep afterwards during competition
-    msleep(12000) -- Wait for small bot to arrive to the middle of the board
-end
-
 function setup_procedure()
-    claw:closed()
+    claw:power(-20)
     reset_position()
 end
 

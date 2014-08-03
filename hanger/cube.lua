@@ -27,9 +27,8 @@ end
 function turn_til_cube()
     sensor.camera_update()
     create.spin_angle(280, -93)
-    arm:topbar()
+    arm:max() arm:bmd()
     create.force_wait()
-    msleep(1000)
     sensor.camera_update()
     create.spin(-45)
     block_until_blob_in_range(0, 0, 1, 90, 98) -- Orig: 75, 83
@@ -66,7 +65,7 @@ return function()
     create.drive_arc(280, -280, 45) -- Move back to line up
     create.drive_arc(240, 280, -34)
     create.drive_segment(200, -300) -- Line up
-    create.drive_segment(60, 30) -- Forward a tad
+    create.dive_segment(60, 30) -- Forward a tad
     create.spin_angle(180, 80) -- Twist
     create.force_wait()
     create.drive_straight(150) -- Drive forward...

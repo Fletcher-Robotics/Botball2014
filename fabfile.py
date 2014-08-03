@@ -20,7 +20,7 @@ def copy_ssh():
 
 def run_rsync():
     """ Copy files from this computer to the target Link """
-    local('rsync -P --delete -rl -e ssh --exclude-from=.exclude --delete-excluded . {0}@{1}:{2}'.format(
+    local('rsync -P --delete -rl -e ssh --timeout=5 --exclude-from=.exclude --delete-excluded . {0}@{1}:{2}'.format(
         env.user, env.host_string, basedir))
 
 def run_script(script):
@@ -57,9 +57,16 @@ def install_library():
     """ Install the latest lualink library from this computer """
     from os.path import join
     run_rsync()
-    with cd(join(basedir, "Lualink/lualink")):
+    with cd(join(basedir, 'Lualink/lualink')):
         run('make uninstall')
         run('make install')
+
+def install_luarunner():
+    """ Compile and install luarunner, assuming that the dummy file or an earlier version exists. """
+    from os.path import join
+    run_rsync()
+    with cd(join(basedir, 'luarunner')):
+        run('sh compile.sh')
 
 def stop():
     """ Stop all motors and servos on Link """

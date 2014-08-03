@@ -8,6 +8,7 @@ local WheelController = {}
 local wheel = require "lualink.wheel_c"
 local motor = require "lualink.motor"
 local time = require "lualink.time"
+local general = require "lualink.general"
 
 --- WheelController constructor
 -- @tparam tab o should include left/right port (lp, rp), left/right speed mult (lm, rm),
@@ -59,6 +60,17 @@ end
 --- Stop all wheel movement
 function WheelController:halt ()
     wheel.halt()
+end
+
+-- Actively keep wheels stopped
+function WheelController:freeze()
+    general.set_auto_publish(false)
+    general.publish()
+    self:both(motor.freeze)
+    general.set_auto_publish(true)
+    general.publish()
+
+    time.msleep(100)
 end
 
 return WheelController
